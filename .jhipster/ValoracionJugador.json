@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "jugadorValorado",
+            "otherEntityName": "jugador",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "jugadorValorador",
+            "otherEntityName": "jugador",
+            "otherEntityField": "nombre"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "hora",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "meGusta",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20170215165206",
+    "entityTableName": "valoracion_jugador",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

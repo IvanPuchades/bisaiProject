@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span data-translate="bisaiApp.jugador.detail.title">Jugador</span> {{vm.jugador.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="bisaiApp.jugador.nickName">Nick Name</span></dt>
+        <dd>
+            <span>{{vm.jugador.nickName}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.jugador.user">User</span></dt>
+        <dd>
+            {{vm.jugador.user.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="jugador-detail.edit({id:vm.jugador.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

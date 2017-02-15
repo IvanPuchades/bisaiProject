@@ -1,0 +1,75 @@
+<div>
+    <h2 data-translate="bisaiApp.clasificacion.home.title">Clasificacions</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="clasificacion.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="bisaiApp.clasificacion.home.createLabel">
+                        Create new Clasificacion
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="bisaiApp.clasificacion.url">Url</span></th>
+                    <th><span data-translate="bisaiApp.clasificacion.resultado">Resultado</span></th>
+                    <th><span data-translate="bisaiApp.clasificacion.foto">Foto</span></th>
+                    <th><span data-translate="bisaiApp.clasificacion.ranking">Ranking</span></th>
+                    <th><span data-translate="bisaiApp.clasificacion.torneo">Torneo</span></th>
+                    <th><span data-translate="bisaiApp.clasificacion.equipo">Equipo</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="clasificacion in vm.clasificacions track by clasificacion.id">
+                    <td><a ui-sref="clasificacion-detail({id:clasificacion.id})">{{clasificacion.id}}</a></td>
+                    <td>{{clasificacion.url}}</td>
+                    <td>{{clasificacion.resultado}}</td>
+                    <td>
+                        <a ng-if="clasificacion.foto" ng-click="vm.openFile(clasificacion.fotoContentType, clasificacion.foto)">
+                            <img data-ng-src="{{'data:' + clasificacion.fotoContentType + ';base64,' + clasificacion.foto}}" style="max-height: 30px;"/>
+                        </a>
+                        <span ng-if="clasificacion.foto">{{clasificacion.fotoContentType}}, {{vm.byteSize(clasificacion.foto)}}</span>
+                    </td>
+                    <td>{{clasificacion.ranking}}</td>
+                    <td>
+                        <a ui-sref="torneo-detail({id:clasificacion.torneo.id})">{{clasificacion.torneo.nombre}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="equipo-detail({id:clasificacion.equipo.id})">{{clasificacion.equipo.nombre}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="clasificacion-detail({id:clasificacion.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="clasificacion.edit({id:clasificacion.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="clasificacion.delete({id:clasificacion.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

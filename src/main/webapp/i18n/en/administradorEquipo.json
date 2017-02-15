@@ -1,0 +1,25 @@
+{
+    "bisaiApp": {
+        "administradorEquipo" : {
+            "home": {
+                "title": "Administrador Equipos",
+                "createLabel": "Create a new Administrador Equipo",
+                "createOrEditLabel": "Create or edit a Administrador Equipo",
+                "search": "Search for Administrador Equipo"
+            },
+            "created": "A new Administrador Equipo is created with identifier {{ param }}",
+            "updated": "A Administrador Equipo is updated with identifier {{ param }}",
+            "deleted": "A Administrador Equipo is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Administrador Equipo {{ id }}?"
+            },
+            "detail": {
+                "title": "Administrador Equipo"
+            },
+            "hora": "Hora",
+            "permiso": "Permiso",
+            "equipo": "Equipo",
+            "jugador": "Jugador"
+        }
+    }
+}

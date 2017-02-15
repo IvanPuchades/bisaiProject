@@ -1,0 +1,45 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "torneo",
+            "otherEntityName": "torneo",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "equipo",
+            "otherEntityName": "equipo",
+            "otherEntityField": "nombre"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "url",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "resultado",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "foto",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "ranking",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170215165203",
+    "javadoc": "not an ignored comment",
+    "entityTableName": "clasificacion",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

@@ -1,0 +1,48 @@
+
+<div>
+    <h2><span data-translate="bisaiApp.clasificacion.detail.title">Clasificacion</span> {{vm.clasificacion.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="bisaiApp.clasificacion.url">Url</span></dt>
+        <dd>
+            <span>{{vm.clasificacion.url}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.clasificacion.resultado">Resultado</span></dt>
+        <dd>
+            <span>{{vm.clasificacion.resultado}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.clasificacion.foto">Foto</span></dt>
+        <dd>
+            <div ng-if="vm.clasificacion.foto">
+                <a ng-click="vm.openFile(vm.clasificacion.fotoContentType, vm.clasificacion.foto)">
+                    <img data-ng-src="{{'data:' + vm.clasificacion.fotoContentType + ';base64,' + vm.clasificacion.foto}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.clasificacion.fotoContentType}}, {{vm.byteSize(vm.clasificacion.foto)}}
+            </div>
+        </dd>
+        <dt><span data-translate="bisaiApp.clasificacion.ranking">Ranking</span></dt>
+        <dd>
+            <span>{{vm.clasificacion.ranking}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.clasificacion.torneo">Torneo</span></dt>
+        <dd>
+            <a ui-sref="torneo-detail({id:vm.clasificacion.torneo.id})">{{vm.clasificacion.torneo.nombre}}</a>
+        </dd>
+        <dt><span data-translate="bisaiApp.clasificacion.equipo">Equipo</span></dt>
+        <dd>
+            <a ui-sref="equipo-detail({id:vm.clasificacion.equipo.id})">{{vm.clasificacion.equipo.nombre}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="clasificacion-detail.edit({id:vm.clasificacion.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

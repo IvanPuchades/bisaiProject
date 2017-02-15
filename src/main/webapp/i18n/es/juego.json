@@ -1,0 +1,26 @@
+{
+    "bisaiApp": {
+        "juego" : {
+            "home": {
+                "title": "Juegos",
+                "createLabel": "Crear nuevo Juego",
+                "createOrEditLabel": "Crear o editar Juego",
+                "search": "Search for Juego"
+            },
+            "created": "Un nuevo Juego ha sido creado con el identificador {{ param }}",
+            "updated": "Un Juego ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Juego ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Juego {{ id }}?"
+            },
+            "detail": {
+                "title": "Juego"
+            },
+            "nombre": "Nombre",
+            "url": "Url",
+            "foto": "Foto",
+            "qr": "Qr",
+            "torneo": "Torneo"
+        }
+    }
+}

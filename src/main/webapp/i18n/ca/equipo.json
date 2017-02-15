@@ -1,0 +1,30 @@
+{
+    "bisaiApp": {
+        "equipo" : {
+            "home": {
+                "title": "Equipos",
+                "createLabel": "Create a new Equipo",
+                "createOrEditLabel": "Create or edit a Equipo",
+                "search": "Search for Equipo"
+            },
+            "created": "A new Equipo is created with identifier {{ param }}",
+            "updated": "A Equipo is updated with identifier {{ param }}",
+            "deleted": "A Equipo is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Equipo {{ id }}?"
+            },
+            "detail": {
+                "title": "Equipo"
+            },
+            "nombre": "Nombre",
+            "fechaCreacion": "Fecha Creacion",
+            "jugador": "Jugador",
+            "clasificacion": "Clasificacion",
+            "valoracionesJugadore": "Valoraciones Jugadore",
+            "administradorEquipo": "Administrador Equipo",
+            "equipo1Partida": "Equipo 1 Partida",
+            "equipo2Partida": "Equipo 2 Partida",
+            "torneo": "Torneo"
+        }
+    }
+}

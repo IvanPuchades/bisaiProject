@@ -1,0 +1,94 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myJuegoLabel" data-translate="bisaiApp.juego.home.createOrEditLabel">Create or edit a Juego</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.juego.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.juego.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.juego.nombre" for="field_nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="field_nombre"
+                    ng-model="vm.juego.nombre"
+                    required />
+            <div ng-show="editForm.nombre.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.nombre.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.juego.url" for="field_url">Url</label>
+            <input type="text" class="form-control" name="url" id="field_url"
+                    ng-model="vm.juego.url"
+                    required />
+            <div ng-show="editForm.url.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.url.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setFoto($file, vm.juego)" ngf-pattern="'image/*'">
+            <label class="control-label" data-translate="bisaiApp.juego.foto" for="field_foto">Foto</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.juego.fotoContentType + ';base64,' + vm.juego.foto}}" style="max-height: 100px;" ng-if="vm.juego.foto"/>
+                <div ng-if="vm.juego.foto" class="help-block clearfix">
+                    <span class="pull-left">{{vm.juego.fotoContentType}}, {{vm.byteSize(vm.juego.foto)}}</span>
+                    <button type="button" ng-click="vm.juego.foto=null;vm.juego.fotoContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="button" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setFoto($file, vm.juego)" accept="image/*" data-translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="foto" id="field_foto"
+                    ng-model="vm.juego.foto"
+                     />
+            <input type="hidden" class="form-control" name="fotoContentType" id="field_fotoContentType"
+                    ng-model="vm.juego.fotoContentType" />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setQr($file, vm.juego)" ngf-pattern="'image/*'">
+            <label class="control-label" data-translate="bisaiApp.juego.qr" for="field_qr">Qr</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.juego.qrContentType + ';base64,' + vm.juego.qr}}" style="max-height: 100px;" ng-if="vm.juego.qr"/>
+                <div ng-if="vm.juego.qr" class="help-block clearfix">
+                    <span class="pull-left">{{vm.juego.qrContentType}}, {{vm.byteSize(vm.juego.qr)}}</span>
+                    <button type="button" ng-click="vm.juego.qr=null;vm.juego.qrContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="button" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setQr($file, vm.juego)" accept="image/*" data-translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="qr" id="field_qr"
+                    ng-model="vm.juego.qr"
+                     />
+            <input type="hidden" class="form-control" name="qrContentType" id="field_qrContentType"
+                    ng-model="vm.juego.qrContentType" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

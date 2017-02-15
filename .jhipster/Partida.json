@@ -1,0 +1,52 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "equipo1",
+            "otherEntityName": "equipo",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "equipo2",
+            "otherEntityName": "equipo",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "torneo",
+            "otherEntityName": "torneo",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "porra",
+            "otherEntityName": "porra",
+            "otherEntityRelationshipName": "partida"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "fechaInicio",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "fechaFinal",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "resultadoEquipo1",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "resultadoEquipo2",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170215165208",
+    "entityTableName": "partida",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

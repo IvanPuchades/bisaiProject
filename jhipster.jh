@@ -1,0 +1,106 @@
+entity Equipo {
+	nombre String required,
+    fechaCreacion LocalDate required
+}
+
+entity Porra{
+cantidad Double,
+eleccion Integer
+
+}
+
+entity Torneo {
+	nombre String required,
+    numeroParticipantes Integer required
+}
+
+entity Jugador{
+	nickName String required
+}
+
+entity Local{
+nombre String required,
+urlLocalizacion String
+
+}
+
+
+// an ignored comment
+/** not an ignored comment */
+entity Clasificacion {
+	url String,
+	resultado Integer required,
+    foto ImageBlob,
+    ranking Integer
+}
+
+entity Juego {
+	nombre String required,
+	url String required,
+    foto ImageBlob,
+    qr ImageBlob
+
+}
+entity ValoracionEquipo{
+hora ZonedDateTime,
+meGusta Boolean
+}
+
+entity ValoracionJugador{
+hora ZonedDateTime,
+meGusta Boolean
+}
+enum Permiso{
+INVITAR, MODIFICAR, EXPULSAR
+}
+
+entity AdministradorEquipo{
+hora ZonedDateTime,
+permiso Permiso
+}
+entity Partida{
+fechaInicio ZonedDateTime,
+fechaFinal ZonedDateTime,
+resultadoEquipo1 Integer,
+resultadoEquipo2 Integer
+
+}
+
+relationship ManyToOne {
+	Torneo{juego(nombre)} to Juego{torneo},
+
+    Clasificacion{torneo(nombre)} to Torneo{clasificacion},
+    Clasificacion{equipo(nombre)} to Equipo{clasificacion},
+
+    ValoracionJugador{jugadorValorado(nombre)} to Jugador{valoracionesRecibida},
+    ValoracionJugador{jugadorValorador(nombre)} to Jugador{valoracionesEnviada},
+
+    ValoracionEquipo{equipo(nombre)} to Equipo{valoracionesJugadore},
+    ValoracionEquipo{jugador(nombre)} to Jugador{valoracionesEquipo},
+
+    AdministradorEquipo{equipo(nombre)} to Equipo{administradorEquipo},
+    AdministradorEquipo{jugador(nombre)} to Jugador{administradorEquipo},
+
+    Partida{equipo1(nombre)} to Equipo{equipo1Partida},
+    Partida{equipo2(nombre)} to Equipo{equipo2Partida},
+    Partida{torneo(nombre)} to Torneo{partida},
+
+    Porra{jugador(nombre)} to Jugador{porra},
+    Porra{partida} to Partida{porra}
+
+}
+
+relationship OneToOne {
+	Jugador{user(login)} to User
+}
+
+
+
+relationship ManyToMany {
+	Equipo{jugador(nickName)} to Jugador{equipo},
+    Torneo{administrador(nickName)} to Jugador{torneo},
+    Torneo{locale(nombre)} to Local{torneo},
+    Torneo{equipo(nombre)} to Equipo{torneo}
+
+
+}

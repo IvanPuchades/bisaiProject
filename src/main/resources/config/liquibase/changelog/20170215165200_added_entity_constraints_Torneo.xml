@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Torneo.
+    -->
+    <changeSet id="20170215165200-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="juego_id"
+                                 baseTableName="torneo"
+                                 constraintName="fk_torneo_juego_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="juego"/>
+
+        <addForeignKeyConstraint baseColumnNames="torneos_id"
+                                 baseTableName="torneo_administrador"
+                                 constraintName="fk_torneo_administrador_torneos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="torneo"/>
+        <addForeignKeyConstraint baseColumnNames="administradors_id"
+                                 baseTableName="torneo_administrador"
+                                 constraintName="fk_torneo_administrador_administradors_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jugador"/>
+        
+        <addForeignKeyConstraint baseColumnNames="torneos_id"
+                                 baseTableName="torneo_locale"
+                                 constraintName="fk_torneo_locale_torneos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="torneo"/>
+        <addForeignKeyConstraint baseColumnNames="locales_id"
+                                 baseTableName="torneo_locale"
+                                 constraintName="fk_torneo_locale_locales_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="local"/>
+        
+        <addForeignKeyConstraint baseColumnNames="torneos_id"
+                                 baseTableName="torneo_equipo"
+                                 constraintName="fk_torneo_equipo_torneos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="torneo"/>
+        <addForeignKeyConstraint baseColumnNames="equipos_id"
+                                 baseTableName="torneo_equipo"
+                                 constraintName="fk_torneo_equipo_equipos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="equipo"/>
+        
+    </changeSet>
+</databaseChangeLog>

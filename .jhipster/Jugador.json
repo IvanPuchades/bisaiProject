@@ -1,0 +1,71 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "jugador"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "valoracionesRecibida",
+            "otherEntityName": "valoracionJugador",
+            "otherEntityRelationshipName": "jugadorValorado"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "valoracionesEnviada",
+            "otherEntityName": "valoracionJugador",
+            "otherEntityRelationshipName": "jugadorValorador"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "valoracionesEquipo",
+            "otherEntityName": "valoracionEquipo",
+            "otherEntityRelationshipName": "jugador"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "administradorEquipo",
+            "otherEntityName": "administradorEquipo",
+            "otherEntityRelationshipName": "jugador"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "porra",
+            "otherEntityName": "porra",
+            "otherEntityRelationshipName": "jugador"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "equipo",
+            "otherEntityName": "equipo",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "jugador"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "torneo",
+            "otherEntityName": "torneo",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "administrador"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nickName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170215165201",
+    "entityTableName": "jugador",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

@@ -1,0 +1,72 @@
+<div>
+    <h2 data-translate="bisaiApp.juego.home.title">Juegos</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="juego.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="bisaiApp.juego.home.createLabel">
+                        Create new Juego
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="bisaiApp.juego.nombre">Nombre</span></th>
+                    <th><span data-translate="bisaiApp.juego.url">Url</span></th>
+                    <th><span data-translate="bisaiApp.juego.foto">Foto</span></th>
+                    <th><span data-translate="bisaiApp.juego.qr">Qr</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="juego in vm.juegos track by juego.id">
+                    <td><a ui-sref="juego-detail({id:juego.id})">{{juego.id}}</a></td>
+                    <td>{{juego.nombre}}</td>
+                    <td>{{juego.url}}</td>
+                    <td>
+                        <a ng-if="juego.foto" ng-click="vm.openFile(juego.fotoContentType, juego.foto)">
+                            <img data-ng-src="{{'data:' + juego.fotoContentType + ';base64,' + juego.foto}}" style="max-height: 30px;"/>
+                        </a>
+                        <span ng-if="juego.foto">{{juego.fotoContentType}}, {{vm.byteSize(juego.foto)}}</span>
+                    </td>
+                    <td>
+                        <a ng-if="juego.qr" ng-click="vm.openFile(juego.qrContentType, juego.qr)">
+                            <img data-ng-src="{{'data:' + juego.qrContentType + ';base64,' + juego.qr}}" style="max-height: 30px;"/>
+                        </a>
+                        <span ng-if="juego.qr">{{juego.qrContentType}}, {{vm.byteSize(juego.qr)}}</span>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="juego-detail({id:juego.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="juego.edit({id:juego.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="juego.delete({id:juego.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

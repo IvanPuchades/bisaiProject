@@ -1,0 +1,29 @@
+{
+    "bisaiApp": {
+        "torneo" : {
+            "home": {
+                "title": "Torneos",
+                "createLabel": "Crear nuevo Torneo",
+                "createOrEditLabel": "Crear o editar Torneo",
+                "search": "Search for Torneo"
+            },
+            "created": "Un nuevo Torneo ha sido creado con el identificador {{ param }}",
+            "updated": "Un Torneo ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Torneo ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Torneo {{ id }}?"
+            },
+            "detail": {
+                "title": "Torneo"
+            },
+            "nombre": "Nombre",
+            "numeroParticipantes": "Numero Participantes",
+            "juego": "Juego",
+            "administrador": "Administrador",
+            "locale": "Locale",
+            "equipo": "Equipo",
+            "clasificacion": "Clasificacion",
+            "partida": "Partida"
+        }
+    }
+}

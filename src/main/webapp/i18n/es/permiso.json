@@ -1,0 +1,10 @@
+{
+    "bisaiApp": {
+        "Permiso" : {
+            "null": "",
+            "INVITAR": "INVITAR",
+            "MODIFICAR": "MODIFICAR",
+            "EXPULSAR": "EXPULSAR"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "bisaiApp": {
+        "valoracionEquipo" : {
+            "home": {
+                "title": "Valoracion Equipos",
+                "createLabel": "Crear nuevo Valoracion Equipo",
+                "createOrEditLabel": "Crear o editar Valoracion Equipo",
+                "search": "Search for Valoracion Equipo"
+            },
+            "created": "Un nuevo Valoracion Equipo ha sido creado con el identificador {{ param }}",
+            "updated": "Un Valoracion Equipo ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Valoracion Equipo ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Valoracion Equipo {{ id }}?"
+            },
+            "detail": {
+                "title": "Valoracion Equipo"
+            },
+            "hora": "Hora",
+            "meGusta": "Me Gusta",
+            "equipo": "Equipo",
+            "jugador": "Jugador"
+        }
+    }
+}

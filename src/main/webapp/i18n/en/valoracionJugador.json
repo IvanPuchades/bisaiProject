@@ -1,0 +1,25 @@
+{
+    "bisaiApp": {
+        "valoracionJugador" : {
+            "home": {
+                "title": "Valoracion Jugadors",
+                "createLabel": "Create a new Valoracion Jugador",
+                "createOrEditLabel": "Create or edit a Valoracion Jugador",
+                "search": "Search for Valoracion Jugador"
+            },
+            "created": "A new Valoracion Jugador is created with identifier {{ param }}",
+            "updated": "A Valoracion Jugador is updated with identifier {{ param }}",
+            "deleted": "A Valoracion Jugador is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Valoracion Jugador {{ id }}?"
+            },
+            "detail": {
+                "title": "Valoracion Jugador"
+            },
+            "hora": "Hora",
+            "meGusta": "Me Gusta",
+            "jugadorValorado": "Jugador Valorado",
+            "jugadorValorador": "Jugador Valorador"
+        }
+    }
+}

@@ -1,0 +1,64 @@
+<div>
+    <h2 data-translate="bisaiApp.equipo.home.title">Equipos</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="equipo.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="bisaiApp.equipo.home.createLabel">
+                        Create new Equipo
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="bisaiApp.equipo.nombre">Nombre</span></th>
+                    <th><span data-translate="bisaiApp.equipo.fechaCreacion">Fecha Creacion</span></th>
+                    <th><span data-translate="bisaiApp.equipo.jugador">Jugador</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="equipo in vm.equipos track by equipo.id">
+                    <td><a ui-sref="equipo-detail({id:equipo.id})">{{equipo.id}}</a></td>
+                    <td>{{equipo.nombre}}</td>
+                        <td>{{equipo.fechaCreacion | date:'mediumDate'}}</td>
+                    <td>
+                        <span ng-repeat="jugador in equipo.jugadors">
+                            <a class="form-control-static" ui-sref="jugador-detail({id: jugador.id})">{{jugador.nickName}}</a>{{$last ? '' : ', '}}
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="equipo-detail({id:equipo.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="equipo.edit({id:equipo.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="equipo.delete({id:equipo.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

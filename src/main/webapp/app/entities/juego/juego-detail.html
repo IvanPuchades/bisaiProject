@@ -1,0 +1,45 @@
+
+<div>
+    <h2><span data-translate="bisaiApp.juego.detail.title">Juego</span> {{vm.juego.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="bisaiApp.juego.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{vm.juego.nombre}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.juego.url">Url</span></dt>
+        <dd>
+            <span>{{vm.juego.url}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.juego.foto">Foto</span></dt>
+        <dd>
+            <div ng-if="vm.juego.foto">
+                <a ng-click="vm.openFile(vm.juego.fotoContentType, vm.juego.foto)">
+                    <img data-ng-src="{{'data:' + vm.juego.fotoContentType + ';base64,' + vm.juego.foto}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.juego.fotoContentType}}, {{vm.byteSize(vm.juego.foto)}}
+            </div>
+        </dd>
+        <dt><span data-translate="bisaiApp.juego.qr">Qr</span></dt>
+        <dd>
+            <div ng-if="vm.juego.qr">
+                <a ng-click="vm.openFile(vm.juego.qrContentType, vm.juego.qr)">
+                    <img data-ng-src="{{'data:' + vm.juego.qrContentType + ';base64,' + vm.juego.qr}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.juego.qrContentType}}, {{vm.byteSize(vm.juego.qr)}}
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="juego-detail.edit({id:vm.juego.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

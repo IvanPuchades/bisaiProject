@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span data-translate="bisaiApp.administradorEquipo.detail.title">Administrador Equipo</span> {{vm.administradorEquipo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="bisaiApp.administradorEquipo.hora">Hora</span></dt>
+        <dd>
+            <span>{{vm.administradorEquipo.hora | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.administradorEquipo.permiso">Permiso</span></dt>
+        <dd>
+            <span data-translate="{{'bisaiApp.Permiso.' + vm.administradorEquipo.permiso}}">{{vm.administradorEquipo.permiso}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.administradorEquipo.equipo">Equipo</span></dt>
+        <dd>
+            <a ui-sref="equipo-detail({id:vm.administradorEquipo.equipo.id})">{{vm.administradorEquipo.equipo.nombre}}</a>
+        </dd>
+        <dt><span data-translate="bisaiApp.administradorEquipo.jugador">Jugador</span></dt>
+        <dd>
+            <a ui-sref="jugador-detail({id:vm.administradorEquipo.jugador.id})">{{vm.administradorEquipo.jugador.nombre}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="administrador-equipo-detail.edit({id:vm.administradorEquipo.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

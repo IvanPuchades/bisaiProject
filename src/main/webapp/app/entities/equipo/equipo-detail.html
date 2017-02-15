@@ -1,0 +1,33 @@
+
+<div>
+    <h2><span data-translate="bisaiApp.equipo.detail.title">Equipo</span> {{vm.equipo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="bisaiApp.equipo.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{vm.equipo.nombre}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.equipo.fechaCreacion">Fecha Creacion</span></dt>
+        <dd>
+            <span>{{vm.equipo.fechaCreacion | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.equipo.jugador">Jugador</span></dt>
+        <dd>
+            <span ng-repeat="jugador in vm.equipo.jugadors">
+                <a ui-sref="jugador-detail({id: jugador.id})">{{jugador.nickName}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="equipo-detail.edit({id:vm.equipo.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

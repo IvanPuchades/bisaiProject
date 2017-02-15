@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165200_added_entity_Torneo.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165201_added_entity_Jugador.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165202_added_entity_Local.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165203_added_entity_Clasificacion.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165204_added_entity_Juego.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165205_added_entity_ValoracionEquipo.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165206_added_entity_ValoracionJugador.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165207_added_entity_AdministradorEquipo.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165208_added_entity_Partida.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165258_added_entity_Equipo.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165259_added_entity_Porra.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="classpath:config/liquibase/changelog/20170215165200_added_entity_constraints_Torneo.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165201_added_entity_constraints_Jugador.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165203_added_entity_constraints_Clasificacion.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165205_added_entity_constraints_ValoracionEquipo.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165206_added_entity_constraints_ValoracionJugador.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165207_added_entity_constraints_AdministradorEquipo.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165208_added_entity_constraints_Partida.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165258_added_entity_constraints_Equipo.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170215165259_added_entity_constraints_Porra.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+</databaseChangeLog>

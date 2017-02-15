@@ -1,0 +1,68 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "juego",
+            "otherEntityName": "juego",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "torneo",
+            "relationshipName": "administrador",
+            "otherEntityName": "jugador",
+            "otherEntityField": "nickName",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "torneo",
+            "relationshipName": "locale",
+            "otherEntityName": "local",
+            "otherEntityField": "nombre",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "torneo",
+            "relationshipName": "equipo",
+            "otherEntityName": "equipo",
+            "otherEntityField": "nombre",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "clasificacion",
+            "otherEntityName": "clasificacion",
+            "otherEntityRelationshipName": "torneo"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "partida",
+            "otherEntityName": "partida",
+            "otherEntityRelationshipName": "torneo"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "numeroParticipantes",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170215165200",
+    "entityTableName": "torneo",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

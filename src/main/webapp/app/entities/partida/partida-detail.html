@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span data-translate="bisaiApp.partida.detail.title">Partida</span> {{vm.partida.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="bisaiApp.partida.fechaInicio">Fecha Inicio</span></dt>
+        <dd>
+            <span>{{vm.partida.fechaInicio | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.partida.fechaFinal">Fecha Final</span></dt>
+        <dd>
+            <span>{{vm.partida.fechaFinal | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.partida.resultadoEquipo1">Resultado Equipo 1</span></dt>
+        <dd>
+            <span>{{vm.partida.resultadoEquipo1}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.partida.resultadoEquipo2">Resultado Equipo 2</span></dt>
+        <dd>
+            <span>{{vm.partida.resultadoEquipo2}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.partida.equipo1">Equipo 1</span></dt>
+        <dd>
+            <a ui-sref="equipo-detail({id:vm.partida.equipo1.id})">{{vm.partida.equipo1.nombre}}</a>
+        </dd>
+        <dt><span data-translate="bisaiApp.partida.equipo2">Equipo 2</span></dt>
+        <dd>
+            <a ui-sref="equipo-detail({id:vm.partida.equipo2.id})">{{vm.partida.equipo2.nombre}}</a>
+        </dd>
+        <dt><span data-translate="bisaiApp.partida.torneo">Torneo</span></dt>
+        <dd>
+            <a ui-sref="torneo-detail({id:vm.partida.torneo.id})">{{vm.partida.torneo.nombre}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="partida-detail.edit({id:vm.partida.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

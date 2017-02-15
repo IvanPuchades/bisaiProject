@@ -1,0 +1,30 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "torneo",
+            "otherEntityName": "torneo",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "locale"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "urlLocalizacion",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170215165202",
+    "entityTableName": "local",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

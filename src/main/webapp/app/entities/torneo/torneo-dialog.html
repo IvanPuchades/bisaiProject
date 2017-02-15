@@ -1,0 +1,72 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myTorneoLabel" data-translate="bisaiApp.torneo.home.createOrEditLabel">Create or edit a Torneo</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.torneo.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.torneo.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.torneo.nombre" for="field_nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="field_nombre"
+                    ng-model="vm.torneo.nombre"
+                    required />
+            <div ng-show="editForm.nombre.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.nombre.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.torneo.numeroParticipantes" for="field_numeroParticipantes">Numero Participantes</label>
+            <input type="number" class="form-control" name="numeroParticipantes" id="field_numeroParticipantes"
+                    ng-model="vm.torneo.numeroParticipantes"
+                    required />
+            <div ng-show="editForm.numeroParticipantes.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.numeroParticipantes.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.numeroParticipantes.$error.number" data-translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label data-translate="bisaiApp.torneo.juego" for="field_juego">Juego</label>
+            <select class="form-control" id="field_juego" name="juego" ng-model="vm.torneo.juego" ng-options="juego as juego.nombre for juego in vm.juegos track by juego.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="bisaiApp.torneo.administrador" for="field_administrador">Administrador</label>
+            <select class="form-control" id="field_administrador" multiple name="administrador" ng-model="vm.torneo.administradors" ng-options="jugador as jugador.nickName for jugador in vm.jugadors track by jugador.id"></select>
+        </div>
+        <div class="form-group">
+            <label data-translate="bisaiApp.torneo.locale" for="field_locale">Locale</label>
+            <select class="form-control" id="field_locale" multiple name="locale" ng-model="vm.torneo.locales" ng-options="local as local.nombre for local in vm.locals track by local.id"></select>
+        </div>
+        <div class="form-group">
+            <label data-translate="bisaiApp.torneo.equipo" for="field_equipo">Equipo</label>
+            <select class="form-control" id="field_equipo" multiple name="equipo" ng-model="vm.torneo.equipos" ng-options="equipo as equipo.nombre for equipo in vm.equipos track by equipo.id"></select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,29 @@
+{
+    "bisaiApp": {
+        "partida" : {
+            "home": {
+                "title": "Partidas",
+                "createLabel": "Crear nuevo Partida",
+                "createOrEditLabel": "Crear o editar Partida",
+                "search": "Search for Partida"
+            },
+            "created": "Un nuevo Partida ha sido creado con el identificador {{ param }}",
+            "updated": "Un Partida ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Partida ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Partida {{ id }}?"
+            },
+            "detail": {
+                "title": "Partida"
+            },
+            "fechaInicio": "Fecha Inicio",
+            "fechaFinal": "Fecha Final",
+            "resultadoEquipo1": "Resultado Equipo 1",
+            "resultadoEquipo2": "Resultado Equipo 2",
+            "equipo1": "Equipo 1",
+            "equipo2": "Equipo 2",
+            "torneo": "Torneo",
+            "porra": "Porra"
+        }
+    }
+}

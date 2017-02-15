@@ -1,0 +1,88 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myClasificacionLabel" data-translate="bisaiApp.clasificacion.home.createOrEditLabel">Create or edit a Clasificacion</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.clasificacion.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.clasificacion.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.clasificacion.url" for="field_url">Url</label>
+            <input type="text" class="form-control" name="url" id="field_url"
+                    ng-model="vm.clasificacion.url"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.clasificacion.resultado" for="field_resultado">Resultado</label>
+            <input type="number" class="form-control" name="resultado" id="field_resultado"
+                    ng-model="vm.clasificacion.resultado"
+                    required />
+            <div ng-show="editForm.resultado.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.resultado.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.resultado.$error.number" data-translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setFoto($file, vm.clasificacion)" ngf-pattern="'image/*'">
+            <label class="control-label" data-translate="bisaiApp.clasificacion.foto" for="field_foto">Foto</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.clasificacion.fotoContentType + ';base64,' + vm.clasificacion.foto}}" style="max-height: 100px;" ng-if="vm.clasificacion.foto"/>
+                <div ng-if="vm.clasificacion.foto" class="help-block clearfix">
+                    <span class="pull-left">{{vm.clasificacion.fotoContentType}}, {{vm.byteSize(vm.clasificacion.foto)}}</span>
+                    <button type="button" ng-click="vm.clasificacion.foto=null;vm.clasificacion.fotoContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="button" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setFoto($file, vm.clasificacion)" accept="image/*" data-translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="foto" id="field_foto"
+                    ng-model="vm.clasificacion.foto"
+                     />
+            <input type="hidden" class="form-control" name="fotoContentType" id="field_fotoContentType"
+                    ng-model="vm.clasificacion.fotoContentType" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.clasificacion.ranking" for="field_ranking">Ranking</label>
+            <input type="number" class="form-control" name="ranking" id="field_ranking"
+                    ng-model="vm.clasificacion.ranking"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label data-translate="bisaiApp.clasificacion.torneo" for="field_torneo">Torneo</label>
+            <select class="form-control" id="field_torneo" name="torneo" ng-model="vm.clasificacion.torneo" ng-options="torneo as torneo.nombre for torneo in vm.torneos track by torneo.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="bisaiApp.clasificacion.equipo" for="field_equipo">Equipo</label>
+            <select class="form-control" id="field_equipo" name="equipo" ng-model="vm.clasificacion.equipo" ng-options="equipo as equipo.nombre for equipo in vm.equipos track by equipo.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

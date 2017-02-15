@@ -1,0 +1,27 @@
+{
+    "bisaiApp": {
+        "clasificacion" : {
+            "home": {
+                "title": "Clasificacions",
+                "createLabel": "Crear nuevo Clasificacion",
+                "createOrEditLabel": "Crear o editar Clasificacion",
+                "search": "Search for Clasificacion"
+            },
+            "created": "Un nuevo Clasificacion ha sido creado con el identificador {{ param }}",
+            "updated": "Un Clasificacion ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Clasificacion ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Clasificacion {{ id }}?"
+            },
+            "detail": {
+                "title": "Clasificacion"
+            },
+            "url": "Url",
+            "resultado": "Resultado",
+            "foto": "Foto",
+            "ranking": "Ranking",
+            "torneo": "Torneo",
+            "equipo": "Equipo"
+        }
+    }
+}

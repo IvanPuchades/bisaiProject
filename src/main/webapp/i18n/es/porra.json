@@ -1,0 +1,25 @@
+{
+    "bisaiApp": {
+        "porra" : {
+            "home": {
+                "title": "Porras",
+                "createLabel": "Crear nuevo Porra",
+                "createOrEditLabel": "Crear o editar Porra",
+                "search": "Search for Porra"
+            },
+            "created": "Un nuevo Porra ha sido creado con el identificador {{ param }}",
+            "updated": "Un Porra ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Porra ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Porra {{ id }}?"
+            },
+            "detail": {
+                "title": "Porra"
+            },
+            "cantidad": "Cantidad",
+            "eleccion": "Eleccion",
+            "jugador": "Jugador",
+            "partida": "Partida"
+        }
+    }
+}

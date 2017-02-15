@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span data-translate="bisaiApp.valoracionEquipo.detail.title">Valoracion Equipo</span> {{vm.valoracionEquipo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="bisaiApp.valoracionEquipo.hora">Hora</span></dt>
+        <dd>
+            <span>{{vm.valoracionEquipo.hora | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.valoracionEquipo.meGusta">Me Gusta</span></dt>
+        <dd>
+            <span>{{vm.valoracionEquipo.meGusta}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.valoracionEquipo.equipo">Equipo</span></dt>
+        <dd>
+            <a ui-sref="equipo-detail({id:vm.valoracionEquipo.equipo.id})">{{vm.valoracionEquipo.equipo.nombre}}</a>
+        </dd>
+        <dt><span data-translate="bisaiApp.valoracionEquipo.jugador">Jugador</span></dt>
+        <dd>
+            <a ui-sref="jugador-detail({id:vm.valoracionEquipo.jugador.id})">{{vm.valoracionEquipo.jugador.nombre}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="valoracion-equipo-detail.edit({id:vm.valoracionEquipo.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

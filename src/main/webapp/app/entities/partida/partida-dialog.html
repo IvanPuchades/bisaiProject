@@ -1,0 +1,76 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myPartidaLabel" data-translate="bisaiApp.partida.home.createOrEditLabel">Create or edit a Partida</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.partida.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.partida.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.partida.fechaInicio" for="field_fechaInicio">Fecha Inicio</label>
+                <div class="input-group">
+                    <input id="field_fechaInicio" type="text" class="form-control" name="fechaInicio" datetime-picker="{{dateformat}}" ng-model="vm.partida.fechaInicio" is-open="vm.datePickerOpenStatus.fechaInicio"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('fechaInicio')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.partida.fechaFinal" for="field_fechaFinal">Fecha Final</label>
+                <div class="input-group">
+                    <input id="field_fechaFinal" type="text" class="form-control" name="fechaFinal" datetime-picker="{{dateformat}}" ng-model="vm.partida.fechaFinal" is-open="vm.datePickerOpenStatus.fechaFinal"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('fechaFinal')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.partida.resultadoEquipo1" for="field_resultadoEquipo1">Resultado Equipo 1</label>
+            <input type="number" class="form-control" name="resultadoEquipo1" id="field_resultadoEquipo1"
+                    ng-model="vm.partida.resultadoEquipo1"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.partida.resultadoEquipo2" for="field_resultadoEquipo2">Resultado Equipo 2</label>
+            <input type="number" class="form-control" name="resultadoEquipo2" id="field_resultadoEquipo2"
+                    ng-model="vm.partida.resultadoEquipo2"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label data-translate="bisaiApp.partida.equipo1" for="field_equipo1">Equipo 1</label>
+            <select class="form-control" id="field_equipo1" name="equipo1" ng-model="vm.partida.equipo1" ng-options="equipo as equipo.nombre for equipo in vm.equipos track by equipo.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="bisaiApp.partida.equipo2" for="field_equipo2">Equipo 2</label>
+            <select class="form-control" id="field_equipo2" name="equipo2" ng-model="vm.partida.equipo2" ng-options="equipo as equipo.nombre for equipo in vm.equipos track by equipo.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="bisaiApp.partida.torneo" for="field_torneo">Torneo</label>
+            <select class="form-control" id="field_torneo" name="torneo" ng-model="vm.partida.torneo" ng-options="torneo as torneo.nombre for torneo in vm.torneos track by torneo.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

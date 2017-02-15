@@ -1,0 +1,30 @@
+{
+    "bisaiApp": {
+        "jugador" : {
+            "home": {
+                "title": "Jugadors",
+                "createLabel": "Crear nuevo Jugador",
+                "createOrEditLabel": "Crear o editar Jugador",
+                "search": "Search for Jugador"
+            },
+            "created": "Un nuevo Jugador ha sido creado con el identificador {{ param }}",
+            "updated": "Un Jugador ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Jugador ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Jugador {{ id }}?"
+            },
+            "detail": {
+                "title": "Jugador"
+            },
+            "nickName": "Nick Name",
+            "user": "User",
+            "valoracionesRecibida": "Valoraciones Recibida",
+            "valoracionesEnviada": "Valoraciones Enviada",
+            "valoracionesEquipo": "Valoraciones Equipo",
+            "administradorEquipo": "Administrador Equipo",
+            "porra": "Porra",
+            "equipo": "Equipo",
+            "torneo": "Torneo"
+        }
+    }
+}

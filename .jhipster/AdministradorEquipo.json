@@ -1,0 +1,33 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "equipo",
+            "otherEntityName": "equipo",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "jugador",
+            "otherEntityName": "jugador",
+            "otherEntityField": "nombre"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "hora",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "permiso",
+            "fieldType": "Permiso",
+            "fieldValues": "INVITAR,MODIFICAR,EXPULSAR"
+        }
+    ],
+    "changelogDate": "20170215165207",
+    "entityTableName": "administrador_equipo",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}
