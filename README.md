@@ -1,5 +1,5 @@
 # bisai
-#Corresponding Android Repository []
+#Corresponding Android Repository [https://github.com/IvanPuchades/bisaiProject]
 This application was generated using JHipster 3.12.0, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v3.12.0](https://jhipster.github.io/documentation-archive/v3.12.0).
 
 ## Development
