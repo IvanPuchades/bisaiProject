@@ -24,6 +24,18 @@
             "relationshipName": "porra",
             "otherEntityName": "porra",
             "otherEntityRelationshipName": "partida"
+        },
+        {
+            "relationshipName": "siguientePartida",
+            "otherEntityName": "partida",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "equipoGanador",
+            "otherEntityName": "equipo",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombre"
         }
     ],
     "fields": [
@@ -42,11 +54,27 @@
         {
             "fieldName": "resultadoEquipo2",
             "fieldType": "Integer"
+        },
+        {
+            "fieldName": "numRonda",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "numPartidaRonda",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
         }
     ],
     "changelogDate": "20170215165208",
-    "entityTableName": "partida",
     "dto": "no",
-    "pagination": "no",
-    "service": "no"
+    "service": "no",
+    "entityTableName": "partida",
+    "pagination": "no"
 }

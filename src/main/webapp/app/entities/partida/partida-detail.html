@@ -20,6 +20,14 @@
         <dd>
             <span>{{vm.partida.resultadoEquipo2}}</span>
         </dd>
+        <dt><span data-translate="bisaiApp.partida.numRonda">Num Ronda</span></dt>
+        <dd>
+            <span>{{vm.partida.numRonda}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.partida.numPartidaRonda">Num Partida Ronda</span></dt>
+        <dd>
+            <span>{{vm.partida.numPartidaRonda}}</span>
+        </dd>
         <dt><span data-translate="bisaiApp.partida.equipo1">Equipo 1</span></dt>
         <dd>
             <a ui-sref="equipo-detail({id:vm.partida.equipo1.id})">{{vm.partida.equipo1.nombre}}</a>
@@ -31,6 +39,14 @@
         <dt><span data-translate="bisaiApp.partida.torneo">Torneo</span></dt>
         <dd>
             <a ui-sref="torneo-detail({id:vm.partida.torneo.id})">{{vm.partida.torneo.nombre}}</a>
+        </dd>
+        <dt><span data-translate="bisaiApp.partida.siguientePartida">Siguiente Partida</span></dt>
+        <dd>
+            <a ui-sref="partida-detail({id:vm.partida.siguientePartida.id})">{{vm.partida.siguientePartida.id}}</a>
+        </dd>
+        <dt><span data-translate="bisaiApp.partida.equipoGanador">Equipo Ganador</span></dt>
+        <dd>
+            <a ui-sref="equipo-detail({id:vm.partida.equipoGanador.id})">{{vm.partida.equipoGanador.nombre}}</a>
         </dd>
     </dl>
 

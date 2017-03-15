@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -39,7 +40,7 @@ public class PartidaResource {
      */
     @PostMapping("/partidas")
     @Timed
-    public ResponseEntity<Partida> createPartida(@RequestBody Partida partida) throws URISyntaxException {
+    public ResponseEntity<Partida> createPartida(@Valid @RequestBody Partida partida) throws URISyntaxException {
         log.debug("REST request to save Partida : {}", partida);
         if (partida.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("partida", "idexists", "A new partida cannot already have an ID")).body(null);
@@ -61,7 +62,7 @@ public class PartidaResource {
      */
     @PutMapping("/partidas")
     @Timed
-    public ResponseEntity<Partida> updatePartida(@RequestBody Partida partida) throws URISyntaxException {
+    public ResponseEntity<Partida> updatePartida(@Valid @RequestBody Partida partida) throws URISyntaxException {
         log.debug("REST request to update Partida : {}", partida);
         if (partida.getId() == null) {
             return createPartida(partida);

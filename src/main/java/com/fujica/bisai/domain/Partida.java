@@ -3,6 +3,7 @@ package com.fujica.bisai.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -34,6 +35,14 @@ public class Partida implements Serializable {
     @Column(name = "resultado_equipo_2")
     private Integer resultadoEquipo2;
 
+    @Min(value = 0)
+    @Column(name = "num_ronda")
+    private Integer numRonda;
+
+    @Min(value = 0)
+    @Column(name = "num_partida_ronda")
+    private Integer numPartidaRonda;
+
     @ManyToOne
     private Equipo equipo1;
 
@@ -46,6 +55,12 @@ public class Partida implements Serializable {
     @OneToMany(mappedBy = "partida")
     @JsonIgnore
     private Set<Porra> porras = new HashSet<>();
+
+    @ManyToOne
+    private Partida siguientePartida;
+
+    @ManyToOne
+    private Equipo equipoGanador;
 
     public Long getId() {
         return id;
@@ -105,6 +120,32 @@ public class Partida implements Serializable {
 
     public void setResultadoEquipo2(Integer resultadoEquipo2) {
         this.resultadoEquipo2 = resultadoEquipo2;
+    }
+
+    public Integer getNumRonda() {
+        return numRonda;
+    }
+
+    public Partida numRonda(Integer numRonda) {
+        this.numRonda = numRonda;
+        return this;
+    }
+
+    public void setNumRonda(Integer numRonda) {
+        this.numRonda = numRonda;
+    }
+
+    public Integer getNumPartidaRonda() {
+        return numPartidaRonda;
+    }
+
+    public Partida numPartidaRonda(Integer numPartidaRonda) {
+        this.numPartidaRonda = numPartidaRonda;
+        return this;
+    }
+
+    public void setNumPartidaRonda(Integer numPartidaRonda) {
+        this.numPartidaRonda = numPartidaRonda;
     }
 
     public Equipo getEquipo1() {
@@ -171,6 +212,32 @@ public class Partida implements Serializable {
         this.porras = porras;
     }
 
+    public Partida getSiguientePartida() {
+        return siguientePartida;
+    }
+
+    public Partida siguientePartida(Partida partida) {
+        this.siguientePartida = partida;
+        return this;
+    }
+
+    public void setSiguientePartida(Partida partida) {
+        this.siguientePartida = partida;
+    }
+
+    public Equipo getEquipoGanador() {
+        return equipoGanador;
+    }
+
+    public Partida equipoGanador(Equipo equipo) {
+        this.equipoGanador = equipo;
+        return this;
+    }
+
+    public void setEquipoGanador(Equipo equipo) {
+        this.equipoGanador = equipo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -199,6 +266,8 @@ public class Partida implements Serializable {
             ", fechaFinal='" + fechaFinal + "'" +
             ", resultadoEquipo1='" + resultadoEquipo1 + "'" +
             ", resultadoEquipo2='" + resultadoEquipo2 + "'" +
+            ", numRonda='" + numRonda + "'" +
+            ", numPartidaRonda='" + numPartidaRonda + "'" +
             '}';
     }
 }

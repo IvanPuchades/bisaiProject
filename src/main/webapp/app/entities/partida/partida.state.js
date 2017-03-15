@@ -108,6 +108,8 @@
                                 fechaFinal: null,
                                 resultadoEquipo1: null,
                                 resultadoEquipo2: null,
+                                numRonda: null,
+                                numPartidaRonda: null,
                                 id: null
                             };
                         }

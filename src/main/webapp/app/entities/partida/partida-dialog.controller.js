@@ -18,6 +18,7 @@
         vm.equipos = Equipo.query();
         vm.torneos = Torneo.query();
         vm.porras = Porra.query();
+        vm.partidas = Partida.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

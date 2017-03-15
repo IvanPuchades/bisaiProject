@@ -1,5 +1,5 @@
 
-<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -45,6 +45,38 @@
                     ng-model="vm.partida.resultadoEquipo2"
                      />
         </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.partida.numRonda" for="field_numRonda">Num Ronda</label>
+            <input type="number" class="form-control" name="numRonda" id="field_numRonda"
+                    ng-model="vm.partida.numRonda"
+                    min="0" />
+            <div ng-show="editForm.numRonda.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.numRonda.$error.min" data-translate="entity.validation.min" translate-value-min="0">
+                    This field should be more than 0.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.numRonda.$error.number" data-translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="bisaiApp.partida.numPartidaRonda" for="field_numPartidaRonda">Num Partida Ronda</label>
+            <input type="number" class="form-control" name="numPartidaRonda" id="field_numPartidaRonda"
+                    ng-model="vm.partida.numPartidaRonda"
+                    min="0" />
+            <div ng-show="editForm.numPartidaRonda.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.numPartidaRonda.$error.min" data-translate="entity.validation.min" translate-value-min="0">
+                    This field should be more than 0.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.numPartidaRonda.$error.number" data-translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
 
         <div class="form-group">
             <label data-translate="bisaiApp.partida.equipo1" for="field_equipo1">Equipo 1</label>
@@ -61,6 +93,18 @@
         <div class="form-group">
             <label data-translate="bisaiApp.partida.torneo" for="field_torneo">Torneo</label>
             <select class="form-control" id="field_torneo" name="torneo" ng-model="vm.partida.torneo" ng-options="torneo as torneo.nombre for torneo in vm.torneos track by torneo.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="bisaiApp.partida.siguientePartida" for="field_siguientePartida">Siguiente Partida</label>
+            <select class="form-control" id="field_siguientePartida" name="siguientePartida" ng-model="vm.partida.siguientePartida" ng-options="partida as partida.id for partida in vm.partidas track by partida.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="bisaiApp.partida.equipoGanador" for="field_equipoGanador">Equipo Ganador</label>
+            <select class="form-control" id="field_equipoGanador" name="equipoGanador" ng-model="vm.partida.equipoGanador" ng-options="equipo as equipo.nombre for equipo in vm.equipos track by equipo.id">
                 <option value=""></option>
             </select>
         </div>

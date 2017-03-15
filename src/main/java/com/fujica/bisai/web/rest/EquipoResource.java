@@ -3,6 +3,7 @@ package com.fujica.bisai.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.fujica.bisai.domain.Equipo;
 
+import com.fujica.bisai.domain.util.JSR310DateConverters;
 import com.fujica.bisai.repository.EquipoRepository;
 import com.fujica.bisai.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +29,7 @@ import java.util.Optional;
 public class EquipoResource {
 
     private final Logger log = LoggerFactory.getLogger(EquipoResource.class);
-        
+
     @Inject
     private EquipoRepository equipoRepository;
 
@@ -46,6 +48,9 @@ public class EquipoResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("equipo", "idexists", "A new equipo cannot already have an ID")).body(null);
         }
         Equipo result = equipoRepository.save(equipo);
+
+
+        ZonedDateTime now = ZonedDateTime.now();
         return ResponseEntity.created(new URI("/api/equipos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("equipo", result.getId().toString()))
             .body(result);

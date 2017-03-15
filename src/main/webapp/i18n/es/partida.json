@@ -20,10 +20,14 @@
             "fechaFinal": "Fecha Final",
             "resultadoEquipo1": "Resultado Equipo 1",
             "resultadoEquipo2": "Resultado Equipo 2",
+            "numRonda": "Num Ronda",
+            "numPartidaRonda": "Num Partida Ronda",
             "equipo1": "Equipo 1",
             "equipo2": "Equipo 2",
             "torneo": "Torneo",
-            "porra": "Porra"
+            "porra": "Porra",
+            "siguientePartida": "Siguiente Partida",
+            "equipoGanador": "Equipo Ganador"
         }
     }
 }

@@ -23,9 +23,13 @@
                     <th><span data-translate="bisaiApp.partida.fechaFinal">Fecha Final</span></th>
                     <th><span data-translate="bisaiApp.partida.resultadoEquipo1">Resultado Equipo 1</span></th>
                     <th><span data-translate="bisaiApp.partida.resultadoEquipo2">Resultado Equipo 2</span></th>
+                    <th><span data-translate="bisaiApp.partida.numRonda">Num Ronda</span></th>
+                    <th><span data-translate="bisaiApp.partida.numPartidaRonda">Num Partida Ronda</span></th>
                     <th><span data-translate="bisaiApp.partida.equipo1">Equipo 1</span></th>
                     <th><span data-translate="bisaiApp.partida.equipo2">Equipo 2</span></th>
                     <th><span data-translate="bisaiApp.partida.torneo">Torneo</span></th>
+                    <th><span data-translate="bisaiApp.partida.siguientePartida">Siguiente Partida</span></th>
+                    <th><span data-translate="bisaiApp.partida.equipoGanador">Equipo Ganador</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -36,6 +40,8 @@
                     <td>{{partida.fechaFinal | date:'medium'}}</td>
                     <td>{{partida.resultadoEquipo1}}</td>
                     <td>{{partida.resultadoEquipo2}}</td>
+                    <td>{{partida.numRonda}}</td>
+                    <td>{{partida.numPartidaRonda}}</td>
                     <td>
                         <a ui-sref="equipo-detail({id:partida.equipo1.id})">{{partida.equipo1.nombre}}</a>
                     </td>
@@ -44,6 +50,12 @@
                     </td>
                     <td>
                         <a ui-sref="torneo-detail({id:partida.torneo.id})">{{partida.torneo.nombre}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="partida-detail({id:partida.siguientePartida.id})">{{partida.siguientePartida.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="equipo-detail({id:partida.equipoGanador.id})">{{partida.equipoGanador.nombre}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

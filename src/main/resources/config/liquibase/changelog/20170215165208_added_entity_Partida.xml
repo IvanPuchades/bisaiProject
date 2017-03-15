@@ -37,6 +37,14 @@
                 <constraints nullable="true" />
             </column>
             
+            <column name="num_ronda" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="num_partida_ronda" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="equipo1_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -46,6 +54,14 @@
             </column>
 
             <column name="torneo_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="siguiente_partida_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="equipo_ganador_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

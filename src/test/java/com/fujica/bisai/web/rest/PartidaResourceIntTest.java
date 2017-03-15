@@ -54,6 +54,12 @@ public class PartidaResourceIntTest {
     private static final Integer DEFAULT_RESULTADO_EQUIPO_2 = 1;
     private static final Integer UPDATED_RESULTADO_EQUIPO_2 = 2;
 
+    private static final Integer DEFAULT_NUM_RONDA = 0;
+    private static final Integer UPDATED_NUM_RONDA = 1;
+
+    private static final Integer DEFAULT_NUM_PARTIDA_RONDA = 0;
+    private static final Integer UPDATED_NUM_PARTIDA_RONDA = 1;
+
     @Inject
     private PartidaRepository partidaRepository;
 
@@ -91,7 +97,9 @@ public class PartidaResourceIntTest {
                 .fechaInicio(DEFAULT_FECHA_INICIO)
                 .fechaFinal(DEFAULT_FECHA_FINAL)
                 .resultadoEquipo1(DEFAULT_RESULTADO_EQUIPO_1)
-                .resultadoEquipo2(DEFAULT_RESULTADO_EQUIPO_2);
+                .resultadoEquipo2(DEFAULT_RESULTADO_EQUIPO_2)
+                .numRonda(DEFAULT_NUM_RONDA)
+                .numPartidaRonda(DEFAULT_NUM_PARTIDA_RONDA);
         return partida;
     }
 
@@ -120,6 +128,8 @@ public class PartidaResourceIntTest {
         assertThat(testPartida.getFechaFinal()).isEqualTo(DEFAULT_FECHA_FINAL);
         assertThat(testPartida.getResultadoEquipo1()).isEqualTo(DEFAULT_RESULTADO_EQUIPO_1);
         assertThat(testPartida.getResultadoEquipo2()).isEqualTo(DEFAULT_RESULTADO_EQUIPO_2);
+        assertThat(testPartida.getNumRonda()).isEqualTo(DEFAULT_NUM_RONDA);
+        assertThat(testPartida.getNumPartidaRonda()).isEqualTo(DEFAULT_NUM_PARTIDA_RONDA);
     }
 
     @Test
@@ -136,7 +146,9 @@ public class PartidaResourceIntTest {
             .andExpect(jsonPath("$.[*].fechaInicio").value(hasItem(sameInstant(DEFAULT_FECHA_INICIO))))
             .andExpect(jsonPath("$.[*].fechaFinal").value(hasItem(sameInstant(DEFAULT_FECHA_FINAL))))
             .andExpect(jsonPath("$.[*].resultadoEquipo1").value(hasItem(DEFAULT_RESULTADO_EQUIPO_1)))
-            .andExpect(jsonPath("$.[*].resultadoEquipo2").value(hasItem(DEFAULT_RESULTADO_EQUIPO_2)));
+            .andExpect(jsonPath("$.[*].resultadoEquipo2").value(hasItem(DEFAULT_RESULTADO_EQUIPO_2)))
+            .andExpect(jsonPath("$.[*].numRonda").value(hasItem(DEFAULT_NUM_RONDA)))
+            .andExpect(jsonPath("$.[*].numPartidaRonda").value(hasItem(DEFAULT_NUM_PARTIDA_RONDA)));
     }
 
     @Test
@@ -153,7 +165,9 @@ public class PartidaResourceIntTest {
             .andExpect(jsonPath("$.fechaInicio").value(sameInstant(DEFAULT_FECHA_INICIO)))
             .andExpect(jsonPath("$.fechaFinal").value(sameInstant(DEFAULT_FECHA_FINAL)))
             .andExpect(jsonPath("$.resultadoEquipo1").value(DEFAULT_RESULTADO_EQUIPO_1))
-            .andExpect(jsonPath("$.resultadoEquipo2").value(DEFAULT_RESULTADO_EQUIPO_2));
+            .andExpect(jsonPath("$.resultadoEquipo2").value(DEFAULT_RESULTADO_EQUIPO_2))
+            .andExpect(jsonPath("$.numRonda").value(DEFAULT_NUM_RONDA))
+            .andExpect(jsonPath("$.numPartidaRonda").value(DEFAULT_NUM_PARTIDA_RONDA));
     }
 
     @Test
@@ -177,7 +191,9 @@ public class PartidaResourceIntTest {
                 .fechaInicio(UPDATED_FECHA_INICIO)
                 .fechaFinal(UPDATED_FECHA_FINAL)
                 .resultadoEquipo1(UPDATED_RESULTADO_EQUIPO_1)
-                .resultadoEquipo2(UPDATED_RESULTADO_EQUIPO_2);
+                .resultadoEquipo2(UPDATED_RESULTADO_EQUIPO_2)
+                .numRonda(UPDATED_NUM_RONDA)
+                .numPartidaRonda(UPDATED_NUM_PARTIDA_RONDA);
 
         restPartidaMockMvc.perform(put("/api/partidas")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -192,6 +208,8 @@ public class PartidaResourceIntTest {
         assertThat(testPartida.getFechaFinal()).isEqualTo(UPDATED_FECHA_FINAL);
         assertThat(testPartida.getResultadoEquipo1()).isEqualTo(UPDATED_RESULTADO_EQUIPO_1);
         assertThat(testPartida.getResultadoEquipo2()).isEqualTo(UPDATED_RESULTADO_EQUIPO_2);
+        assertThat(testPartida.getNumRonda()).isEqualTo(UPDATED_NUM_RONDA);
+        assertThat(testPartida.getNumPartidaRonda()).isEqualTo(UPDATED_NUM_PARTIDA_RONDA);
     }
 
     @Test

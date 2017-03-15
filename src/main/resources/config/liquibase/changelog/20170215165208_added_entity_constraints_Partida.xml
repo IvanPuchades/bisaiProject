@@ -26,5 +26,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="torneo"/>
 
+        <addForeignKeyConstraint baseColumnNames="siguiente_partida_id"
+                                 baseTableName="partida"
+                                 constraintName="fk_partida_siguiente_partida_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="partida"/>
+
+        <addForeignKeyConstraint baseColumnNames="equipo_ganador_id"
+                                 baseTableName="partida"
+                                 constraintName="fk_partida_equipo_ganador_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="equipo"/>
+
     </changeSet>
 </databaseChangeLog>
