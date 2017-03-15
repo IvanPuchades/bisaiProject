@@ -1,8 +1,10 @@
 package com.fujica.bisai.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.fujica.bisai.domain.Equipo;
 import com.fujica.bisai.domain.Torneo;
 
+import com.fujica.bisai.repository.EquipoRepository;
 import com.fujica.bisai.repository.TorneoRepository;
 import com.fujica.bisai.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,9 +30,12 @@ import java.util.Optional;
 public class TorneoResource {
 
     private final Logger log = LoggerFactory.getLogger(TorneoResource.class);
-        
+
     @Inject
     private TorneoRepository torneoRepository;
+
+    @Inject
+    private EquipoRepository equipoRepository;
 
     /**
      * POST  /torneos : Create a new torneo.
@@ -46,6 +52,19 @@ public class TorneoResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("torneo", "idexists", "A new torneo cannot already have an ID")).body(null);
         }
         Torneo result = torneoRepository.save(torneo);
+
+        // control de errores para que cuando se crea un torneo no tenga partidas
+
+        if(torneo.getEquipos().size()>0){
+
+            log.debug("REST request to save Torneo : Warning el torneo ya tiene equipos asociados", torneo);
+
+         return ResponseEntity.
+             badRequest().
+             headers(HeaderUtil.createFailureAlert("torneo", "equiposExist", "A new torneo cannot already have an asociated teams")).body(null);
+
+
+        }
         return ResponseEntity.created(new URI("/api/torneos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("torneo", result.getId().toString()))
             .body(result);
@@ -102,6 +121,59 @@ public class TorneoResource {
                 result,
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+//
+    @PutMapping("/torneos/{id}/equipo/{idEquipo}")
+    @Timed
+    @Transactional
+    public ResponseEntity<Torneo> getTorneo(@PathVariable Long id, @PathVariable Long idEquipo) {
+        log.debug("REST request to get Torneo : {}", id);
+        Torneo torneo = torneoRepository.findOneWithEagerRelationships(id);
+
+        // control de errores
+
+        if(torneo == null){
+
+            return ResponseEntity.
+                badRequest().
+                headers(HeaderUtil.
+                    createFailureAlert("torneo", "torneoNotExist", "El torneo no existe ")).
+                body(null);
+
+
+        }
+
+        if(torneo.getEquipos().size()==torneo.getNumeroParticipantes()){
+
+            return ResponseEntity.
+                badRequest().
+                headers(HeaderUtil.
+                    createFailureAlert("torneo", "equiposMax", "El  " + torneo.getNombre()+ " ya tiene el maximo de equipos")).
+                body(null);
+
+        }
+
+
+        Equipo equipo = equipoRepository.findOne(idEquipo);
+
+        if(equipo == null){
+
+            return ResponseEntity.
+                badRequest().
+                headers(HeaderUtil.
+                    createFailureAlert("equipo", "equipoNotExist", "El equipo no existe ")).
+                body(null);
+
+
+        }
+
+
+        torneo.addEquipo(equipo);
+
+        torneoRepository.save(torneo);
+
+
+        return new ResponseEntity<>(torneo, HttpStatus.OK);
     }
 
     /**

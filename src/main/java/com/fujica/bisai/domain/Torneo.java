@@ -49,7 +49,12 @@ public class Torneo implements Serializable {
     @JoinTable(name = "torneo_equipo",
                joinColumns = @JoinColumn(name="torneos_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="equipos_id", referencedColumnName="ID"))
+
+
     private Set<Equipo> equipos = new HashSet<>();
+
+
+
 
     @OneToMany(mappedBy = "torneo")
     @JsonIgnore
