@@ -59,7 +59,6 @@ public class TorneoResource {
         if (torneo.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("torneo", "idexists", "A new torneo cannot already have an ID")).body(null);
         }
-        Torneo result = torneoRepository.save(torneo);
 
         // control de errores para que cuando se crea un torneo no tenga partidas
 
@@ -73,6 +72,20 @@ public class TorneoResource {
 
 
         }
+
+        if(!isPowerOfTwo(torneo.getNumeroParticipantes())){
+
+            log.debug("El numero de participantes no es potencia de 2", torneo);
+
+            return ResponseEntity.
+                badRequest().
+                headers(HeaderUtil.createFailureAlert("torneo", "numEquiposNoPotencia2", "El numero de participantes no es potencia de 2")).body(null);
+
+
+        }
+
+        Torneo result = torneoRepository.save(torneo);
+
         return ResponseEntity.created(new URI("/api/torneos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("torneo", result.getId().toString()))
             .body(result);
@@ -289,5 +302,18 @@ public class TorneoResource {
         torneoRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("torneo", id.toString())).build();
     }
+
+
+    private static boolean isPowerOfTwo(int number) {
+        if(number <0){
+            throw new IllegalArgumentException("number: " + number);
+        }
+        if ((number & -number) == number) {
+            return true;
+        }
+        return false;
+    }
+
+
 
 }
