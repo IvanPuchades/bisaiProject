@@ -6,6 +6,7 @@ import com.fujica.bisai.domain.Partida;
 import com.fujica.bisai.domain.Torneo;
 
 import com.fujica.bisai.repository.EquipoRepository;
+import com.fujica.bisai.repository.PartidaRepository;
 import com.fujica.bisai.repository.TorneoRepository;
 import com.fujica.bisai.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
@@ -36,6 +37,10 @@ public class TorneoResource {
 
     @Inject
     private EquipoRepository equipoRepository;
+
+    @Inject
+    private PartidaRepository partidaRepository;
+
 
 
 
@@ -183,9 +188,13 @@ public class TorneoResource {
     @PostMapping("/torneos/{id}/partidas")
     @Timed
     @Transactional
+
+    //Metodo para generar Partidas
     public ResponseEntity<Torneo> generarPartidas(@PathVariable Long id) {
         log.debug("REST request to generate games : {}", id);
         Torneo torneo = torneoRepository.findOneWithEagerRelationships(id);
+
+        // Controlamos que no se genere el torneo antes de cumplir con todos los equipos
 
         if(torneo.getNumeroParticipantes()< torneo.getEquipos().size()){
 
@@ -198,10 +207,15 @@ public class TorneoResource {
 
         }
 
+
+
         List<Equipo> equipos = new ArrayList<>(torneo.getEquipos());
+
+        // ordenamos aleatoriamente la lista de quipos
 
         Collections.shuffle(equipos);
 
+        // Creamos la cola
 
         Queue<Partida> partidaQueue = new LinkedList<>();
 
@@ -209,7 +223,7 @@ public class TorneoResource {
 
         for (int i = 0; i< equipos.size() ; i++) {
             Partida partida = new Partida();
-            partida.setNumPartidaRonda(0);
+            partida.setNumRonda(0);
             partida.setNumPartidaRonda(numPartidaEnRonda++);
 
             Equipo equipo1 = equipos.get(i);
@@ -221,6 +235,8 @@ public class TorneoResource {
             partida.setEquipo2(equipo2);
 
             partidaQueue.add(partida);
+
+            partidaRepository.save(partida);
 
         }
 
@@ -235,6 +251,9 @@ public class TorneoResource {
             // TODO GENERAR CORRECTAMENTE EL NUMERO DE PARTIDA EN RONDA
             partida1.setSiguientePartida(siguientePartida);
             partida2.setSiguientePartida(siguientePartida);
+
+            partidaRepository.save(siguientePartida);
+
 
             if(partidaQueue.isEmpty()){
 
@@ -251,7 +270,7 @@ public class TorneoResource {
 
         }
 
-
+            return new ResponseEntity<>(torneo, HttpStatus.OK);
 
 
 
