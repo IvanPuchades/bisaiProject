@@ -2,6 +2,7 @@ package com.fujica.bisai.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fujica.bisai.domain.Equipo;
+import com.fujica.bisai.domain.Partida;
 import com.fujica.bisai.domain.Torneo;
 
 import com.fujica.bisai.repository.EquipoRepository;
@@ -19,8 +20,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing Torneo.
@@ -36,6 +36,9 @@ public class TorneoResource {
 
     @Inject
     private EquipoRepository equipoRepository;
+
+
+
 
     /**
      * POST  /torneos : Create a new torneo.
@@ -176,12 +179,90 @@ public class TorneoResource {
         return new ResponseEntity<>(torneo, HttpStatus.OK);
     }
 
-    /**
-     * DELETE  /torneos/:id : delete the "id" torneo.
-     *
-     * @param id the id of the torneo to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
+
+    @PostMapping("/torneos/{id}/partidas")
+    @Timed
+    @Transactional
+    public ResponseEntity<Torneo> generarPartidas(@PathVariable Long id) {
+        log.debug("REST request to generate games : {}", id);
+        Torneo torneo = torneoRepository.findOneWithEagerRelationships(id);
+
+        if(torneo.getNumeroParticipantes()< torneo.getEquipos().size()){
+
+            return ResponseEntity.
+                badRequest().
+                headers(HeaderUtil.
+                    createFailureAlert("torneo", "equiposInsuficientes", "No hay suficientes equipos inscritos ")).
+                body(null);
+
+
+        }
+
+        List<Equipo> equipos = new ArrayList<>(torneo.getEquipos());
+
+        Collections.shuffle(equipos);
+
+
+        Queue<Partida> partidaQueue = new LinkedList<>();
+
+        int numPartidaEnRonda = 0;
+
+        for (int i = 0; i< equipos.size() ; i++) {
+            Partida partida = new Partida();
+            partida.setNumPartidaRonda(0);
+            partida.setNumPartidaRonda(numPartidaEnRonda++);
+
+            Equipo equipo1 = equipos.get(i);
+
+            Equipo equipo2 = equipos.get(++i);
+
+
+            partida.setEquipo1(equipo1);
+            partida.setEquipo2(equipo2);
+
+            partidaQueue.add(partida);
+
+        }
+
+        while(true){
+
+            Partida partida1 = partidaQueue.poll();
+            Partida partida2 = partidaQueue.poll();
+
+            Partida siguientePartida = new Partida();
+
+            siguientePartida.setNumRonda(partida1.getNumRonda()+1);
+            // TODO GENERAR CORRECTAMENTE EL NUMERO DE PARTIDA EN RONDA
+            partida1.setSiguientePartida(siguientePartida);
+            partida2.setSiguientePartida(siguientePartida);
+
+            if(partidaQueue.isEmpty()){
+
+                log.debug("REST request to generate games : Ya hemos generado la final", id);
+
+                break;
+
+            }
+
+            partidaQueue.add(siguientePartida);
+
+
+
+
+        }
+
+
+
+
+
+    }
+
+        /**
+         * DELETE  /torneos/:id : delete the "id" torneo.
+         *
+         * @param id the id of the torneo to delete
+         * @return the ResponseEntity with status 200 (OK)
+         */
     @DeleteMapping("/torneos/{id}")
     @Timed
     public ResponseEntity<Void> deleteTorneo(@PathVariable Long id) {

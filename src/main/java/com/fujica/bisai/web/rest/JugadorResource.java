@@ -3,7 +3,10 @@ package com.fujica.bisai.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.fujica.bisai.domain.Jugador;
 
+import com.fujica.bisai.domain.User;
 import com.fujica.bisai.repository.JugadorRepository;
+import com.fujica.bisai.repository.UserRepository;
+import com.fujica.bisai.security.SecurityUtils;
 import com.fujica.bisai.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +30,13 @@ import java.util.Optional;
 public class JugadorResource {
 
     private final Logger log = LoggerFactory.getLogger(JugadorResource.class);
-        
+
     @Inject
     private JugadorRepository jugadorRepository;
+
+    @Inject
+    private UserRepository userRepository;
+
 
     /**
      * POST  /jugadors : Create a new jugador.
@@ -45,7 +52,16 @@ public class JugadorResource {
         if (jugador.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("jugador", "idexists", "A new jugador cannot already have an ID")).body(null);
         }
+
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+
+        jugador.setUser(user);
+
         Jugador result = jugadorRepository.save(jugador);
+
+
+
         return ResponseEntity.created(new URI("/api/jugadors/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("jugador", result.getId().toString()))
             .body(result);
