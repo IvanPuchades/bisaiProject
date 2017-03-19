@@ -21,6 +21,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 /**
@@ -31,6 +32,8 @@ import java.util.*;
 public class TorneoResource {
 
     private final Logger log = LoggerFactory.getLogger(TorneoResource.class);
+
+    // Inject de los repository que necesitamos
 
     @Inject
     private TorneoRepository torneoRepository;
@@ -171,7 +174,6 @@ public class TorneoResource {
                 headers(HeaderUtil.
                     createFailureAlert("torneo", "equiposMax", "El  " + torneo.getNombre()+ " ya tiene el maximo de equipos")).
                 body(null);
-
         }
 
 
@@ -239,6 +241,8 @@ public class TorneoResource {
             partida.setNumRonda(0);
             partida.setNumPartidaRonda(numPartidaEnRonda++);
 
+
+
             Equipo equipo1 = equipos.get(i);
 
             Equipo equipo2 = equipos.get(++i);
@@ -246,6 +250,9 @@ public class TorneoResource {
 
             partida.setEquipo1(equipo1);
             partida.setEquipo2(equipo2);
+
+            // Agregamos a que torneo esta la partida
+            partida.setTorneo(torneo);
 
             partidaQueue.add(partida);
 
@@ -288,6 +295,45 @@ public class TorneoResource {
 
 
     }
+
+    @PostMapping("/partida/{id}/fecha")
+    @Timed
+    @Transactional
+
+    //Metodo para generar Partidas
+    public ResponseEntity<Partida> agregarFechaPartidaRonda(@PathVariable Long id, @PathVariable ZonedDateTime date) {
+
+        log.debug("REST request to add date to roundGame : {}", id);
+
+        Partida partida = partidaRepository.findOne(id);
+
+
+
+        // Controlamos que exista la partida
+
+        if (partida == null) {
+
+
+            return ResponseEntity.
+                badRequest().
+                headers(HeaderUtil.
+                    createFailureAlert("partida", "noExistePartida", "No existe la partida ")).
+                body(null);
+        }
+
+        // todo comprobar que la fecha pasada por parametros sea la correcta (ZoneDateTime)
+        partida.setFechaInicio(date);
+
+
+        // guardamos los cambios
+        partidaRepository.save(partida);
+
+
+        return new ResponseEntity<>(partida, HttpStatus.OK);
+    }
+
+
+
 
         /**
          * DELETE  /torneos/:id : delete the "id" torneo.
