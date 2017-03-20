@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,7 +28,7 @@ import java.util.Optional;
 public class PartidaResource {
 
     private final Logger log = LoggerFactory.getLogger(PartidaResource.class);
-        
+
     @Inject
     private PartidaRepository partidaRepository;
 
@@ -68,6 +69,68 @@ public class PartidaResource {
             return createPartida(partida);
         }
         Partida result = partidaRepository.save(partida);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert("partida", partida.getId().toString()))
+            .body(result);
+    }
+
+    @PutMapping("/partidas/{id}/resultados")
+    @Timed
+    @Transactional
+    public ResponseEntity<Partida> updateResultadoPartida(@Valid @RequestBody Partida partida) throws URISyntaxException {
+        log.debug("REST request to update Partida : {}", partida);
+        if (partida.getId() == null) {
+            return createPartida(partida);
+        }
+
+        // Bad request Equipo 1 y equipo 2
+
+        if (partida.getResultadoEquipo1() == null) {
+
+            return ResponseEntity.
+                badRequest().
+                headers(HeaderUtil.
+                    createFailureAlert("partida", "resultadoEquipo1Null", "El resultado del equipo 1 es null ")).
+                body(null);
+
+        }
+
+        if (partida.getResultadoEquipo2() == null) {
+
+            return ResponseEntity.
+                badRequest().
+                headers(HeaderUtil.
+                    createFailureAlert("partida", "resultadoEquipo2Null", "El resulrado del equipo 2 es null ")).
+                body(null);
+
+        }
+
+        //todo actualizar la fecha final
+
+        if (partida.getResultadoEquipo1() > partida.getResultadoEquipo2()) {
+            partida.setEquipoGanador(partida.getEquipo1());
+        } else {
+            partida.setEquipoGanador(partida.getEquipo2());
+        }
+
+
+        Partida result = partidaRepository.save(partida);
+
+
+        Partida siguientePartida = partidaRepository.findOne(partida.getSiguientePartida().getId());
+
+
+
+        if (siguientePartida.getEquipo1() == null) {
+            siguientePartida.setEquipo1(partida.getEquipoGanador());
+
+        } else {
+            siguientePartida.setEquipo2(partida.getEquipoGanador());
+        }
+
+        partidaRepository.save(siguientePartida);
+
+
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("partida", partida.getId().toString()))
             .body(result);

@@ -29,9 +29,11 @@ public class Partida implements Serializable {
     @Column(name = "fecha_final")
     private ZonedDateTime fechaFinal;
 
+    @Min(value = 0)
     @Column(name = "resultado_equipo_1")
     private Integer resultadoEquipo1;
 
+    @Min(value = 0)
     @Column(name = "resultado_equipo_2")
     private Integer resultadoEquipo2;
 
@@ -43,10 +45,10 @@ public class Partida implements Serializable {
     @Column(name = "num_partida_ronda")
     private Integer numPartidaRonda;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Equipo equipo1;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Equipo equipo2;
 
     @ManyToOne
