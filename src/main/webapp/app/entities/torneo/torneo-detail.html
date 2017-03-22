@@ -12,6 +12,18 @@
         <dd>
             <span>{{vm.torneo.numeroParticipantes}}</span>
         </dd>
+        <dt><span data-translate="bisaiApp.torneo.fechaInicio">Fecha Inicio</span></dt>
+        <dd>
+            <span>{{vm.torneo.fechaInicio | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.torneo.cancelado">Cancelado</span></dt>
+        <dd>
+            <span>{{vm.torneo.cancelado}}</span>
+        </dd>
+        <dt><span data-translate="bisaiApp.torneo.descripcion">Descripcion</span></dt>
+        <dd>
+            <span>{{vm.torneo.descripcion}}</span>
+        </dd>
         <dt><span data-translate="bisaiApp.torneo.juego">Juego</span></dt>
         <dd>
             <a ui-sref="juego-detail({id:vm.torneo.juego.id})">{{vm.torneo.juego.nombre}}</a>
@@ -33,6 +45,10 @@
             <span ng-repeat="equipo in vm.torneo.equipos">
                 <a ui-sref="equipo-detail({id: equipo.id})">{{equipo.nombre}}</a>{{$last ? '' : ', '}}
             </span>
+        </dd>
+        <dt><span data-translate="bisaiApp.torneo.equipoGanador">Equipo Ganador</span></dt>
+        <dd>
+            <a ui-sref="equipo-detail({id:vm.torneo.equipoGanador.id})">{{vm.torneo.equipoGanador.nombre}}</a>
         </dd>
     </dl>
 

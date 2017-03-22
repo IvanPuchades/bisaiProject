@@ -12,6 +12,8 @@
 
         vm.torneo = entity;
         vm.clear = clear;
+        vm.datePickerOpenStatus = {};
+        vm.openCalendar = openCalendar;
         vm.save = save;
         vm.juegos = Juego.query();
         vm.jugadors = Jugador.query();
@@ -47,6 +49,10 @@
             vm.isSaving = false;
         }
 
+        vm.datePickerOpenStatus.fechaInicio = false;
 
+        function openCalendar (date) {
+            vm.datePickerOpenStatus[date] = true;
+        }
     }
 })();

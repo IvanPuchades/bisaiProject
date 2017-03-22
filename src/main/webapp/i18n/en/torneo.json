@@ -18,12 +18,16 @@
             },
             "nombre": "Nombre",
             "numeroParticipantes": "Numero Participantes",
+            "fechaInicio": "Fecha Inicio",
+            "cancelado": "Cancelado",
+            "descripcion": "Descripcion",
             "juego": "Juego",
             "administrador": "Administrador",
             "locale": "Locale",
             "equipo": "Equipo",
             "clasificacion": "Clasificacion",
-            "partida": "Partida"
+            "partida": "Partida",
+            "equipoGanador": "Equipo Ganador"
         }
     }
 }

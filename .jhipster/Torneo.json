@@ -42,6 +42,12 @@
             "relationshipName": "partida",
             "otherEntityName": "partida",
             "otherEntityRelationshipName": "torneo"
+        },
+        {
+            "relationshipName": "equipoGanador",
+            "otherEntityName": "equipo",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombre"
         }
     ],
     "fields": [
@@ -58,11 +64,23 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "fechaInicio",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "cancelado",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20170215165200",
-    "entityTableName": "torneo",
     "dto": "no",
-    "pagination": "no",
-    "service": "no"
+    "service": "no",
+    "entityTableName": "torneo",
+    "pagination": "no"
 }

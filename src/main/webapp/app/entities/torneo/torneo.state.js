@@ -106,6 +106,9 @@
                             return {
                                 nombre: null,
                                 numeroParticipantes: null,
+                                fechaInicio: null,
+                                cancelado: null,
+                                descripcion: null,
                                 id: null
                             };
                         }

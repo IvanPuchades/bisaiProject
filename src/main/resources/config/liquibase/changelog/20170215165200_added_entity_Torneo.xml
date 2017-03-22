@@ -29,12 +29,29 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="fecha_inicio" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="cancelado" type="bit">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="descripcion" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="juego_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="equipo_ganador_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="torneo" columnName="fecha_inicio" columnDataType="datetime"/>
         
         <createTable tableName="torneo_administrador">
             <column name="administradors_id" type="bigint">

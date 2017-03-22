@@ -47,5 +47,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="equipo"/>
         
+        <addForeignKeyConstraint baseColumnNames="equipo_ganador_id"
+                                 baseTableName="torneo"
+                                 constraintName="fk_torneo_equipo_ganador_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="equipo"/>
+
     </changeSet>
 </databaseChangeLog>

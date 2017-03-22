@@ -21,8 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
+import static com.fujica.bisai.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -42,6 +47,15 @@ public class TorneoResourceIntTest {
 
     private static final Integer DEFAULT_NUMERO_PARTICIPANTES = 1;
     private static final Integer UPDATED_NUMERO_PARTICIPANTES = 2;
+
+    private static final ZonedDateTime DEFAULT_FECHA_INICIO = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_FECHA_INICIO = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+
+    private static final Boolean DEFAULT_CANCELADO = false;
+    private static final Boolean UPDATED_CANCELADO = true;
+
+    private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
 
     @Inject
     private TorneoRepository torneoRepository;
@@ -78,7 +92,10 @@ public class TorneoResourceIntTest {
     public static Torneo createEntity(EntityManager em) {
         Torneo torneo = new Torneo()
                 .nombre(DEFAULT_NOMBRE)
-                .numeroParticipantes(DEFAULT_NUMERO_PARTICIPANTES);
+                .numeroParticipantes(DEFAULT_NUMERO_PARTICIPANTES)
+                .fechaInicio(DEFAULT_FECHA_INICIO)
+                .cancelado(DEFAULT_CANCELADO)
+                .descripcion(DEFAULT_DESCRIPCION);
         return torneo;
     }
 
@@ -105,6 +122,9 @@ public class TorneoResourceIntTest {
         Torneo testTorneo = torneos.get(torneos.size() - 1);
         assertThat(testTorneo.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testTorneo.getNumeroParticipantes()).isEqualTo(DEFAULT_NUMERO_PARTICIPANTES);
+        assertThat(testTorneo.getFechaInicio()).isEqualTo(DEFAULT_FECHA_INICIO);
+        assertThat(testTorneo.isCancelado()).isEqualTo(DEFAULT_CANCELADO);
+        assertThat(testTorneo.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
     }
 
     @Test
@@ -155,7 +175,10 @@ public class TorneoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(torneo.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
-            .andExpect(jsonPath("$.[*].numeroParticipantes").value(hasItem(DEFAULT_NUMERO_PARTICIPANTES)));
+            .andExpect(jsonPath("$.[*].numeroParticipantes").value(hasItem(DEFAULT_NUMERO_PARTICIPANTES)))
+            .andExpect(jsonPath("$.[*].fechaInicio").value(hasItem(sameInstant(DEFAULT_FECHA_INICIO))))
+            .andExpect(jsonPath("$.[*].cancelado").value(hasItem(DEFAULT_CANCELADO.booleanValue())))
+            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())));
     }
 
     @Test
@@ -170,7 +193,10 @@ public class TorneoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(torneo.getId().intValue()))
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()))
-            .andExpect(jsonPath("$.numeroParticipantes").value(DEFAULT_NUMERO_PARTICIPANTES));
+            .andExpect(jsonPath("$.numeroParticipantes").value(DEFAULT_NUMERO_PARTICIPANTES))
+            .andExpect(jsonPath("$.fechaInicio").value(sameInstant(DEFAULT_FECHA_INICIO)))
+            .andExpect(jsonPath("$.cancelado").value(DEFAULT_CANCELADO.booleanValue()))
+            .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION.toString()));
     }
 
     @Test
@@ -192,7 +218,10 @@ public class TorneoResourceIntTest {
         Torneo updatedTorneo = torneoRepository.findOne(torneo.getId());
         updatedTorneo
                 .nombre(UPDATED_NOMBRE)
-                .numeroParticipantes(UPDATED_NUMERO_PARTICIPANTES);
+                .numeroParticipantes(UPDATED_NUMERO_PARTICIPANTES)
+                .fechaInicio(UPDATED_FECHA_INICIO)
+                .cancelado(UPDATED_CANCELADO)
+                .descripcion(UPDATED_DESCRIPCION);
 
         restTorneoMockMvc.perform(put("/api/torneos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -205,6 +234,9 @@ public class TorneoResourceIntTest {
         Torneo testTorneo = torneos.get(torneos.size() - 1);
         assertThat(testTorneo.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testTorneo.getNumeroParticipantes()).isEqualTo(UPDATED_NUMERO_PARTICIPANTES);
+        assertThat(testTorneo.getFechaInicio()).isEqualTo(UPDATED_FECHA_INICIO);
+        assertThat(testTorneo.isCancelado()).isEqualTo(UPDATED_CANCELADO);
+        assertThat(testTorneo.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
     }
 
     @Test

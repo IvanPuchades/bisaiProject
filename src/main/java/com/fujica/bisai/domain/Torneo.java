@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -30,6 +31,15 @@ public class Torneo implements Serializable {
     @Column(name = "numero_participantes", nullable = false)
     private Integer numeroParticipantes;
 
+    @Column(name = "fecha_inicio")
+    private ZonedDateTime fechaInicio;
+
+    @Column(name = "cancelado")
+    private Boolean cancelado;
+
+    @Column(name = "descripcion")
+    private String descripcion;
+
     @ManyToOne
     private Juego juego;
 
@@ -49,12 +59,7 @@ public class Torneo implements Serializable {
     @JoinTable(name = "torneo_equipo",
                joinColumns = @JoinColumn(name="torneos_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="equipos_id", referencedColumnName="ID"))
-
-
     private Set<Equipo> equipos = new HashSet<>();
-
-
-
 
     @OneToMany(mappedBy = "torneo")
     @JsonIgnore
@@ -63,6 +68,9 @@ public class Torneo implements Serializable {
     @OneToMany(mappedBy = "torneo")
     @JsonIgnore
     private Set<Partida> partidas = new HashSet<>();
+
+    @ManyToOne
+    private Equipo equipoGanador;
 
     public Long getId() {
         return id;
@@ -96,6 +104,45 @@ public class Torneo implements Serializable {
 
     public void setNumeroParticipantes(Integer numeroParticipantes) {
         this.numeroParticipantes = numeroParticipantes;
+    }
+
+    public ZonedDateTime getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public Torneo fechaInicio(ZonedDateTime fechaInicio) {
+        this.fechaInicio = fechaInicio;
+        return this;
+    }
+
+    public void setFechaInicio(ZonedDateTime fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Boolean isCancelado() {
+        return cancelado;
+    }
+
+    public Torneo cancelado(Boolean cancelado) {
+        this.cancelado = cancelado;
+        return this;
+    }
+
+    public void setCancelado(Boolean cancelado) {
+        this.cancelado = cancelado;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public Torneo descripcion(String descripcion) {
+        this.descripcion = descripcion;
+        return this;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Juego getJuego() {
@@ -236,6 +283,19 @@ public class Torneo implements Serializable {
         this.partidas = partidas;
     }
 
+    public Equipo getEquipoGanador() {
+        return equipoGanador;
+    }
+
+    public Torneo equipoGanador(Equipo equipo) {
+        this.equipoGanador = equipo;
+        return this;
+    }
+
+    public void setEquipoGanador(Equipo equipo) {
+        this.equipoGanador = equipo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -262,6 +322,9 @@ public class Torneo implements Serializable {
             "id=" + id +
             ", nombre='" + nombre + "'" +
             ", numeroParticipantes='" + numeroParticipantes + "'" +
+            ", fechaInicio='" + fechaInicio + "'" +
+            ", cancelado='" + cancelado + "'" +
+            ", descripcion='" + descripcion + "'" +
             '}';
     }
 }

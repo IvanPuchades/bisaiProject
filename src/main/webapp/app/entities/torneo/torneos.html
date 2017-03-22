@@ -21,10 +21,14 @@
                     <th><span data-translate="global.field.id">ID</span></th>
                     <th><span data-translate="bisaiApp.torneo.nombre">Nombre</span></th>
                     <th><span data-translate="bisaiApp.torneo.numeroParticipantes">Numero Participantes</span></th>
+                    <th><span data-translate="bisaiApp.torneo.fechaInicio">Fecha Inicio</span></th>
+                    <th><span data-translate="bisaiApp.torneo.cancelado">Cancelado</span></th>
+                    <th><span data-translate="bisaiApp.torneo.descripcion">Descripcion</span></th>
                     <th><span data-translate="bisaiApp.torneo.juego">Juego</span></th>
                     <th><span data-translate="bisaiApp.torneo.administrador">Administrador</span></th>
                     <th><span data-translate="bisaiApp.torneo.locale">Locale</span></th>
                     <th><span data-translate="bisaiApp.torneo.equipo">Equipo</span></th>
+                    <th><span data-translate="bisaiApp.torneo.equipoGanador">Equipo Ganador</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -33,6 +37,9 @@
                     <td><a ui-sref="torneo-detail({id:torneo.id})">{{torneo.id}}</a></td>
                     <td>{{torneo.nombre}}</td>
                     <td>{{torneo.numeroParticipantes}}</td>
+                    <td>{{torneo.fechaInicio | date:'medium'}}</td>
+                    <td>{{torneo.cancelado}}</td>
+                    <td>{{torneo.descripcion}}</td>
                     <td>
                         <a ui-sref="juego-detail({id:torneo.juego.id})">{{torneo.juego.nombre}}</a>
                     </td>
@@ -50,6 +57,9 @@
                         <span ng-repeat="equipo in torneo.equipos">
                             <a class="form-control-static" ui-sref="equipo-detail({id: equipo.id})">{{equipo.nombre}}</a>{{$last ? '' : ', '}}
                         </span>
+                    </td>
+                    <td>
+                        <a ui-sref="equipo-detail({id:torneo.equipoGanador.id})">{{torneo.equipoGanador.nombre}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
