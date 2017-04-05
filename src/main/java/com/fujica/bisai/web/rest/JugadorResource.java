@@ -2,7 +2,6 @@ package com.fujica.bisai.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fujica.bisai.domain.Jugador;
-
 import com.fujica.bisai.domain.User;
 import com.fujica.bisai.repository.JugadorRepository;
 import com.fujica.bisai.repository.UserRepository;
@@ -10,9 +9,9 @@ import com.fujica.bisai.security.SecurityUtils;
 import com.fujica.bisai.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -47,6 +46,8 @@ public class JugadorResource {
      */
     @PostMapping("/jugadors")
     @Timed
+//    @Secured("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Jugador> createJugador(@Valid @RequestBody Jugador jugador) throws URISyntaxException {
         log.debug("REST request to save Jugador : {}", jugador);
         if (jugador.getId() != null) {
