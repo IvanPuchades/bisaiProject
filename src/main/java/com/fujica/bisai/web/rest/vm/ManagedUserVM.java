@@ -29,6 +29,17 @@ public class ManagedUserVM extends UserDTO {
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
 
+
+    private String nickName;
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     public ManagedUserVM() {
     }
 

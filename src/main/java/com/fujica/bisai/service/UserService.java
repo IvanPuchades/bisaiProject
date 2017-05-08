@@ -1,8 +1,10 @@
 package com.fujica.bisai.service;
 
 import com.fujica.bisai.domain.Authority;
+import com.fujica.bisai.domain.Jugador;
 import com.fujica.bisai.domain.User;
 import com.fujica.bisai.repository.AuthorityRepository;
+import com.fujica.bisai.repository.JugadorRepository;
 import com.fujica.bisai.repository.UserRepository;
 import com.fujica.bisai.security.AuthoritiesConstants;
 import com.fujica.bisai.security.SecurityUtils;
@@ -40,6 +42,10 @@ public class UserService {
 
     @Inject
     private AuthorityRepository authorityRepository;
+
+    @Inject
+    private JugadorRepository jugadorRepository;
+
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -80,7 +86,7 @@ public class UserService {
     }
 
     public User createUser(String login, String password, String firstName, String lastName, String email,
-        String langKey) {
+                           String langKey, String nickName) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
@@ -129,6 +135,15 @@ public class UserService {
         user.setActivated(true);
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
+
+// Creamos jugador y lo vinculamos al user
+        Jugador jugador = new Jugador();
+        jugador.setUser(user);
+        jugador.setNickName(managedUserVM.getNickName());
+
+        jugadorRepository.save(jugador);
+        log.debug("Created Information for Jugador: {}", jugador);
+
         return user;
     }
 
@@ -222,4 +237,6 @@ public class UserService {
             userRepository.delete(user);
         }
     }
+
+
 }
