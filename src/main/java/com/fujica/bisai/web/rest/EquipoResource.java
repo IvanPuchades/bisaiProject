@@ -3,6 +3,7 @@ package com.fujica.bisai.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.fujica.bisai.domain.Equipo;
 
+import com.fujica.bisai.domain.Jugador;
 import com.fujica.bisai.domain.util.JSR310DateConverters;
 import com.fujica.bisai.repository.EquipoRepository;
 import com.fujica.bisai.web.rest.util.HeaderUtil;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,6 +111,28 @@ public class EquipoResource {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/equiposDeUnJugador/{id}")
+    @Timed
+    public List<Equipo> getEquiposDeUnJugador(@PathVariable Long id) {
+        log.debug("REST request to get Equipos from Jugador : {}", id);
+        List<Equipo> equipos = equipoRepository.findAllWithEagerRelationships();
+        List<Equipo> listaEquipoDeUnJugador = new ArrayList<>();
+
+        for (Equipo e : equipos){
+
+           for (Jugador j: e.getJugadors()){
+
+               if(j.getId() == id){
+                   listaEquipoDeUnJugador.add(e);
+               }
+
+            }
+
+
+        }
+
+        return listaEquipoDeUnJugador;
+    }
     /**
      * DELETE  /equipos/:id : delete the "id" equipo.
      *

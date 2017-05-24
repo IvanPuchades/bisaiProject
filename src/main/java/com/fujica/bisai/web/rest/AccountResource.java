@@ -80,6 +80,8 @@ public class AccountResource {
     @Timed
     public ResponseEntity<?> registerAccountApp(@Valid @RequestBody ManagedUserVM managedUserVM, HttpServletRequest request) {
 
+        managedUserVM.setNickName(managedUserVM.getLogin());
+
         HttpHeaders textPlainHeaders = new HttpHeaders();
         textPlainHeaders.setContentType(MediaType.TEXT_PLAIN);
 

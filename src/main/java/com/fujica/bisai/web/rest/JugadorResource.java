@@ -1,12 +1,15 @@
 package com.fujica.bisai.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.fujica.bisai.config.Constants;
 import com.fujica.bisai.domain.Jugador;
 import com.fujica.bisai.domain.User;
 import com.fujica.bisai.repository.JugadorRepository;
 import com.fujica.bisai.repository.UserRepository;
 import com.fujica.bisai.security.SecurityUtils;
+import com.fujica.bisai.service.UserService;
 import com.fujica.bisai.web.rest.util.HeaderUtil;
+import com.fujica.bisai.web.rest.vm.ManagedUserVM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -35,6 +38,8 @@ public class JugadorResource {
 
     @Inject
     private UserRepository userRepository;
+    @Inject
+    private UserService userService;
 
 
     /**
@@ -133,6 +138,16 @@ public class JugadorResource {
         log.debug("REST request to delete Jugador : {}", id);
         jugadorRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("jugador", id.toString())).build();
+    }
+
+    @GetMapping("/jugadors/byLogin/{login:" + Constants.LOGIN_REGEX + "}")
+    @Timed
+    public ResponseEntity<Jugador> getUser(@PathVariable String login) {
+        log.debug("REST request to get User : {}", login);
+        return userService.getUserWithAuthoritiesByLogin(login)
+            .map(user -> jugadorRepository.findByUser(user))
+            .map(jugador -> new ResponseEntity<>(jugador.get(), HttpStatus.OK)).get();
+
     }
 
 }

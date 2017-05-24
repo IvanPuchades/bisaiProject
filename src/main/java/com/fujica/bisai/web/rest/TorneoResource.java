@@ -212,50 +212,36 @@ public class TorneoResource {
         // Controlamos que no se genere el torneo antes de cumplir con todos los equipos
 
         if(torneo.getNumeroParticipantes()< torneo.getEquipos().size()){
-
             return ResponseEntity.
                 badRequest().
                 headers(HeaderUtil.
                     createFailureAlert("torneo", "equiposInsuficientes", "No hay suficientes equipos inscritos ")).
                 body(null);
-
-
         }
 
 
 
         List<Equipo> equipos = new ArrayList<>(torneo.getEquipos());
-
-        // ordenamos aleatoriamente la lista de quipos
-
         Collections.shuffle(equipos);
 
         // Creamos la cola
 
         Queue<Partida> partidaQueue = new LinkedList<>();
-
         int numPartidaEnRonda = 0;
-
         for (int i = 0; i< equipos.size() ; i++) {
             Partida partida = new Partida();
             partida.setNumRonda(0);
             partida.setNumPartidaRonda(numPartidaEnRonda++);
 
-
-
             Equipo equipo1 = equipos.get(i);
-
             Equipo equipo2 = equipos.get(++i);
-
 
             partida.setEquipo1(equipo1);
             partida.setEquipo2(equipo2);
 
             // Agregamos a que torneo esta la partida
             partida.setTorneo(torneo);
-
             partidaQueue.add(partida);
-
             partidaRepository.save(partida);
 
         }
@@ -266,9 +252,8 @@ public class TorneoResource {
             Partida partida2 = partidaQueue.poll();
 
             Partida siguientePartida = new Partida();
-
             siguientePartida.setNumRonda(partida1.getNumRonda()+1);
-            // TODO GENERAR CORRECTAMENTE EL NUMERO DE PARTIDA EN RONDA
+
             partida1.setSiguientePartida(siguientePartida);
             partida2.setSiguientePartida(siguientePartida);
 
@@ -276,17 +261,10 @@ public class TorneoResource {
 
 
             if(partidaQueue.isEmpty()){
-
                 log.debug("REST request to generate games : Ya hemos generado la final", id);
-
                 break;
-
             }
-
             partidaQueue.add(siguientePartida);
-
-
-
 
         }
 

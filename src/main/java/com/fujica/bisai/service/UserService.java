@@ -107,6 +107,15 @@ public class UserService {
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
+
+        // Creamos jugador y lo vinculamos al user
+        Jugador jugador = new Jugador();
+        jugador.setUser(newUser);
+        jugador.setNickName(nickName);
+
+        jugadorRepository.save(jugador);
+        log.debug("Created Information for Jugador: {}", jugador);
+
         return newUser;
     }
 
