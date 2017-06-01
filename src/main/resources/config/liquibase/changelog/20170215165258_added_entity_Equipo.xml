@@ -24,14 +24,16 @@
             <column name="nombre" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="fecha_creacion" type="date">
                 <constraints nullable="false" />
             </column>
-            
+            <column name="password" type="varchar(255)">
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
         <createTable tableName="equipo_jugador">
             <column name="jugadors_id" type="bigint">
                 <constraints nullable="false"/>
@@ -42,6 +44,6 @@
         </createTable>
 
         <addPrimaryKey columnNames="equipos_id, jugadors_id" tableName="equipo_jugador"/>
-        
+
     </changeSet>
 </databaseChangeLog>

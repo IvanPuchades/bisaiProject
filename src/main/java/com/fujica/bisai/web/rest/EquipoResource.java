@@ -6,6 +6,7 @@ import com.fujica.bisai.domain.Equipo;
 import com.fujica.bisai.domain.Jugador;
 import com.fujica.bisai.domain.util.JSR310DateConverters;
 import com.fujica.bisai.repository.EquipoRepository;
+import com.fujica.bisai.repository.JugadorRepository;
 import com.fujica.bisai.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,8 @@ public class EquipoResource {
 
     @Inject
     private EquipoRepository equipoRepository;
+    @Inject
+    private JugadorRepository jugadorRepository;
 
     /**
      * POST  /equipos : Create a new equipo.
@@ -44,15 +48,17 @@ public class EquipoResource {
      */
     @PostMapping("/equipos")
     @Timed
-    public ResponseEntity<Equipo> createEquipo(@Valid @RequestBody Equipo equipo) throws URISyntaxException {
+    public ResponseEntity<Equipo> createEquipo(@RequestBody Equipo equipo) throws URISyntaxException {
         log.debug("REST request to save Equipo : {}", equipo);
         if (equipo.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("equipo", "idexists", "A new equipo cannot already have an ID")).body(null);
         }
+        ZonedDateTime now = ZonedDateTime.now();
+        equipo.setFechaCreacion(now.toLocalDate());
         Equipo result = equipoRepository.save(equipo);
 
 
-        ZonedDateTime now = ZonedDateTime.now();
+
         return ResponseEntity.created(new URI("/api/equipos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("equipo", result.getId().toString()))
             .body(result);
@@ -74,6 +80,40 @@ public class EquipoResource {
         if (equipo.getId() == null) {
             return createEquipo(equipo);
         }
+        Equipo result = equipoRepository.save(equipo);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert("equipo", equipo.getId().toString()))
+            .body(result);
+    }
+
+    @PutMapping("/equipos/{idEquipo}/jugador/{idJugador}")
+    @Timed
+    public ResponseEntity<Equipo> updateJugadorInEquipo(@PathVariable Long idEquipo,
+                                                        @PathVariable Long idJugador,
+                                                        @RequestHeader String equipoPassword)
+        throws URISyntaxException {
+
+        Jugador jugador = jugadorRepository.findOne(idJugador);
+        if (jugador == null){
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("jugador", "idJugador", "ID jugador not exist.")).body(null);
+        }
+        Equipo equipo = equipoRepository.findOneWithEagerRelationships(idEquipo);
+
+        if(equipo == null){
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("equipo", "idexists", "A equipo do not exist")).body(null);
+        }
+
+        if(jugador == null){
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("equipo", "idexists", "A new jugador cannot be null")).body(null);
+        }
+
+        if(!equipoPassword.equals( equipo.getPassword())){
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("equipo", "idexists", "the passwprd did not match")).body(null);
+
+        }
+
+        equipo.getJugadors().add(jugador);
+
         Equipo result = equipoRepository.save(equipo);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("equipo", equipo.getId().toString()))

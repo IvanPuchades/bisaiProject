@@ -31,6 +31,9 @@ public class Equipo implements Serializable {
     @Column(name = "fecha_creacion", nullable = false)
     private LocalDate fechaCreacion;
 
+    @Column(name = "password", nullable = false)
+    private String password;
+
     @ManyToMany
     @JoinTable(name = "equipo_jugador",
                joinColumns = @JoinColumn(name="equipos_id", referencedColumnName="ID"),
@@ -76,6 +79,14 @@ public class Equipo implements Serializable {
     public Equipo nombre(String nombre) {
         this.nombre = nombre;
         return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setNombre(String nombre) {
