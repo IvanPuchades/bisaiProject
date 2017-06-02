@@ -150,9 +150,10 @@ public class TorneoResource {
     @PutMapping("/torneos/{id}/equipo/{idEquipo}")
     @Timed
     @Transactional
-    public ResponseEntity<Torneo> getTorneo(@PathVariable Long id, @PathVariable Long idEquipo) {
-        log.debug("REST request to get Torneo : {}", id);
-        Torneo torneo = torneoRepository.findOneWithEagerRelationships(id);
+    public ResponseEntity<Torneo> putEquipoInTorneo(@PathVariable Long idTorneo, @PathVariable Long idEquipo) {
+        log.debug("REST request to get Torneo : {}", idTorneo);
+        Torneo torneo = torneoRepository.findOneWithEagerRelationships(idTorneo);
+
 
         // control de errores
 
