@@ -147,7 +147,7 @@ public class TorneoResource {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 //
-    @PutMapping("/torneos/{id}/equipo/{idEquipo}")
+    @PutMapping("/torneos/{idTorneo}/equipo/{idEquipo}")
     @Timed
     @Transactional
     public ResponseEntity<Torneo> putEquipoInTorneo(@PathVariable Long idTorneo, @PathVariable Long idEquipo) {
