@@ -2,10 +2,12 @@ package com.fujica.bisai.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fujica.bisai.domain.Equipo;
+import com.fujica.bisai.domain.Jugador;
 import com.fujica.bisai.domain.Partida;
 import com.fujica.bisai.domain.Torneo;
 
 import com.fujica.bisai.repository.EquipoRepository;
+import com.fujica.bisai.repository.JugadorRepository;
 import com.fujica.bisai.repository.PartidaRepository;
 import com.fujica.bisai.repository.TorneoRepository;
 import com.fujica.bisai.web.rest.util.HeaderUtil;
@@ -43,6 +45,8 @@ public class TorneoResource {
 
     @Inject
     private PartidaRepository partidaRepository;
+    @Inject
+    private JugadorRepository jugadorRepository;
 
 
 
@@ -146,7 +150,35 @@ public class TorneoResource {
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-//
+// metodo para saber la lista de los torneos que tiene pendiente un jugador
+
+    @GetMapping("/torneos/pendiente/jugador/{id}")
+    @Timed
+    @Transactional
+    public List<Torneo> getTorneoPendienteJugador(@PathVariable Long id) {
+        log.debug("Buscando lista torneos pendiente de un jugador {}", id);
+
+        Jugador jugador = jugadorRepository.findOne(id);
+
+
+       List<Torneo> torneo = torneoRepository.findAll();
+        List<Torneo> torneosPendientes = new ArrayList<>();
+        for(Torneo t : torneo){
+            if(t.isCancelado() == null && t.getEquipoGanador() == null) {
+                for (Equipo e : t.getEquipos()) {
+                    for (Jugador ju : e.getJugadors()) {
+                        if (ju.getId() == jugador.getId()) {
+                            torneosPendientes.add(t);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        return torneosPendientes;
+    }
+
     @PutMapping("/torneos/{idTorneo}/equipo/{idEquipo}")
     @Timed
     @Transactional
