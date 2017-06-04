@@ -157,25 +157,29 @@ public class TorneoResource {
     @Transactional
     public List<Torneo> getTorneoPendienteJugador(@PathVariable Long id) {
         log.debug("Buscando lista torneos pendiente de un jugador {}", id);
-
         Jugador jugador = jugadorRepository.findOne(id);
-
-
-       List<Torneo> torneo = torneoRepository.findAll();
+        List<Torneo> torneo = torneoRepository.findAll();
         List<Torneo> torneosPendientes = new ArrayList<>();
+        boolean apuntarAgenda;
         for(Torneo t : torneo){
+            apuntarAgenda = false;
             if(t.isCancelado() == null && t.getEquipoGanador() == null) {
                 for (Equipo e : t.getEquipos()) {
                     for (Jugador ju : e.getJugadors()) {
                         if (ju.getId() == jugador.getId()) {
-                            torneosPendientes.add(t);
+                            apuntarAgenda = true;
+                            break;
                         }
+                    }
+                    if(apuntarAgenda){
+                        break;
                     }
                 }
             }
+            if(apuntarAgenda){
+                torneosPendientes.add(t);
+            }
         }
-
-
         return torneosPendientes;
     }
 
