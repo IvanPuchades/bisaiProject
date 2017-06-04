@@ -132,19 +132,29 @@ public class TorneoResource {
         List<Torneo> torneos = torneoRepository.findAllWithEagerRelationships();
         return torneos;
     }
-    @GetMapping("/torneos/busqueda")
+    @GetMapping("/torneos/busqueda/{idJugador}")
     @Timed
-    public List<Torneo> getBusquedaTorneos() {
+    public List<Torneo> getBusquedaTorneos(@PathVariable Long idJugador) {
         log.debug("REST request to get all Torneos for join in");
         List<Torneo> torneos = torneoRepository.findAllWithEagerRelationships();
         List<Torneo> torneosBusqueda = new ArrayList<>();
+
+
+        boolean esta;
         for (Torneo t: torneos){
             if(t.isCancelado() == null){
-                if (t.getNumeroParticipantes() > t.getEquipos().size()){
+                if (t.getNumeroParticipantes() != t.getEquipos().size()){
+                if(t.getEquipos() == null || t.getEquipos().size() == 0)
                     torneosBusqueda.add(t);
-                }
-            }
-        }
+                }else {
+                    esta = false;
+                    for (Equipo e : t.getEquipos()){
+                            for(Jugador j : e.getJugadors()){
+                                if(j.getId() == idJugador){
+                                    esta = true;}}}
+                     if(!esta){
+                        torneosBusqueda.add(t);
+                    }}}}
         return torneosBusqueda;
     }
 
