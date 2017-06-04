@@ -158,6 +158,29 @@ public class TorneoResource {
                     }}}}}
         return torneosBusqueda;
     }
+    @GetMapping("/torneos/busqueda/acabados/ganador/jugador/{idJugador}")
+    @Timed
+    @Transactional
+    public List<Torneo> getBusquedaTorneoAcabado(@PathVariable Long idJugador) {
+        log.debug("REST request to get all Torneos end, show winner");
+        List<Torneo> torneos = torneoRepository.findAllWithEagerRelationships();
+        List<Torneo> torneosBusqueda = new ArrayList<>();
+
+            for(Torneo t : torneos){
+                if(t.getEquipoGanador() != null){
+                    for (Equipo e : t.getEquipos()){
+                        for(Jugador j: e.getJugadors()){
+                            if(j.getId() == idJugador){
+                                torneosBusqueda.add(t);
+                            }
+                        }
+                    }
+                }
+
+            }
+
+        return torneosBusqueda;
+    }
 
     /**
      * GET  /torneos/:id : get the "id" torneo.
