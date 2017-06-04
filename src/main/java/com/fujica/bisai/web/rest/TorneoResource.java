@@ -275,7 +275,28 @@ public class TorneoResource {
 
 
         }
+        boolean esta = false;
+      for (Jugador j : equipo.getJugadors()){
+          esta = false;
 
+          for (Equipo e : torneo.getEquipos()){
+
+              for(Jugador ju: e.getJugadors()){
+                  if(ju.getId() == j.getId()){
+                      esta = true;
+                  }
+              }
+
+          }
+
+      }
+      if(esta){
+          return ResponseEntity.
+              badRequest().
+              headers(HeaderUtil.
+                  createFailureAlert("equipo", "OnePlayerOfTeamIsInTorneo", "Un usuario del equipo que desea registrar se encuentra en otro equipo registrado en dicho torneo ")).
+              body(null);
+      }
 
         torneo.addEquipo(equipo);
 
