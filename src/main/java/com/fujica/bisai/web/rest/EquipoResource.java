@@ -133,6 +133,23 @@ public class EquipoResource {
         return equipos;
     }
 
+    @GetMapping("/equipos/filtro/{palabra}")
+    @Timed
+    public List<Equipo> getAllTorneosBuscar(@PathVariable String palabra) {
+        log.debug("REST request to get all Torneos / filtro");
+        List<Equipo> equipos = equipoRepository.findAllWithEagerRelationships();
+        List<Equipo> EquiposFiltrados = new ArrayList<>();
+        if(palabra.equals("")){
+            EquiposFiltrados = equipos;
+        }else{
+            for(Equipo e : equipos){
+                if(e.getNombre().toLowerCase().contains(palabra.toLowerCase())){
+                    EquiposFiltrados.add(e);
+                }
+            }}
+        return EquiposFiltrados;
+    }
+
     /**
      * GET  /equipos/:id : get the "id" equipo.
      *

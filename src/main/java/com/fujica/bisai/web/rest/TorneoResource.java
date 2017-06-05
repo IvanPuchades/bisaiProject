@@ -132,6 +132,24 @@ public class TorneoResource {
         List<Torneo> torneos = torneoRepository.findAllWithEagerRelationships();
         return torneos;
     }
+    @GetMapping("/torneos/filtro/{palabra}")
+    @Timed
+    public List<Torneo> getAllTorneosBuscar(@PathVariable String palabra) {
+        log.debug("REST request to get all Torneos");
+        List<Torneo> torneos = torneoRepository.findAllWithEagerRelationships();
+        List<Torneo> torneosFiltrados = new ArrayList<>();
+
+        if(palabra.equals("")){
+            torneosFiltrados = torneos;
+        }else{
+            for(Torneo t : torneos){
+                if(t.getNombre().contains(palabra)){
+                    torneosFiltrados.add(t);
+                }
+            }
+        }
+        return torneosFiltrados;
+    }
     @GetMapping("/torneos/busqueda/{idJugador}")
     @Timed
     @Transactional
